@@ -13,6 +13,7 @@ const DEFAULTS = {
 
 const ABILITIES = {
   heroism: 32182,
+  timeWarp: 80353,
   windStorm: 136577,
   superchargeConduits: 137045,
   shellConcussion: 136431,
@@ -450,9 +451,11 @@ async function getHeroismTimestamp(baseUrl, token, code, fight) {
     fight.startTime,
     fight.endTime,
     "Casts",
-    ABILITIES.heroism
+    null
   );
+  const allowed = new Set([ABILITIES.heroism, ABILITIES.timeWarp]);
   const timestamps = events
+    .filter((e) => allowed.has(getAbilityId(e)))
     .map((e) => e.timestamp)
     .filter((ts) => typeof ts === "number");
   if (!timestamps.length) return null;
