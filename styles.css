@@ -156,6 +156,18 @@ button.ghost {
   gap: 20px;
 }
 
+.compare {
+  display: grid;
+  gap: 24px;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
 .card {
   background: var(--panel);
   border: 1px solid var(--panel-border);

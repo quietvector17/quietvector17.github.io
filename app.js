@@ -1,5 +1,6 @@
 const form = document.getElementById("analysis-form");
 const reportInput = document.getElementById("report-input");
+const reportInput2 = document.getElementById("report-input-2");
 const clientIdInput = document.getElementById("client-id");
 const clientSecretInput = document.getElementById("client-secret");
 const runBtn = document.getElementById("run-btn");
@@ -62,7 +63,7 @@ function clearResults() {
   resultsEl.innerHTML = "";
 }
 
-function createCard(title, description) {
+function createCard(title, description, parent = resultsEl) {
   const card = document.createElement("section");
   card.className = "card";
   const h2 = document.createElement("h2");
@@ -71,7 +72,7 @@ function createCard(title, description) {
   p.textContent = description;
   card.appendChild(h2);
   card.appendChild(p);
-  resultsEl.appendChild(card);
+  parent.appendChild(card);
   return card;
 }
 
@@ -1002,12 +1003,202 @@ async function buildTortos(baseUrl, token, code, report) {
   return { tables };
 }
 
+async function buildAnalysis(baseUrl, token, reportCode) {
+  const report = await fetchReport(baseUrl, token, reportCode);
+  const actors = report.masterData?.actors || [];
+  const playerIds = new Set(
+    actors
+      .filter((a) => a && (norm(a.type) === "player" || norm(a.subType) === "player"))
+      .map((a) => a.id)
+      .filter((id) => typeof id === "number")
+  );
+  const actorById = buildActorById(actors);
+
+  const overall = await buildOverall(baseUrl, token, reportCode, report, playerIds);
+  const council = await buildCouncil(baseUrl, token, reportCode, report);
+  const megaera = await buildMegaera(baseUrl, token, reportCode, report);
+  const ironQon = await buildIronQon(baseUrl, token, reportCode, report, actorById);
+  const leiShen = await buildLeiShen(baseUrl, token, reportCode, report);
+  const tortos = await buildTortos(baseUrl, token, reportCode, report);
+
+  return {
+    report,
+    reportCode,
+    overall,
+    council,
+    megaera,
+    ironQon,
+    leiShen,
+    tortos,
+  };
+}
+
+function renderSingle(analysis) {
+  const overallCard = createCard("Overall", `Report: ${analysis.report.title} (${analysis.reportCode})`);
+  addTable(overallCard, analysis.overall.columns, analysis.overall.rows, { sortable: true });
+  addNote(overallCard, analysis.overall.footer);
+
+  const councilCard = createCard("Council of Elders", "Death order for elder bosses on kill pulls.");
+  if (analysis.council.empty) {
+    addNote(councilCard, analysis.council.empty);
+  } else {
+    for (const table of analysis.council.tables) {
+      addSubhead(councilCard, table.title);
+      addTable(councilCard, table.columns, table.rows);
+    }
+  }
+
+  const megaeraCard = createCard("Megaera", "Head death order and inferred final head.");
+  if (analysis.megaera.empty) {
+    addNote(megaeraCard, analysis.megaera.empty);
+  } else {
+    for (const table of analysis.megaera.tables) {
+      addSubhead(megaeraCard, table.title);
+      addTable(megaeraCard, table.columns, table.rows);
+    }
+  }
+
+  const ironQonCard = createCard("Iron Qon", "Dog death timing and windstorm markers.");
+  if (analysis.ironQon.empty) {
+    addNote(ironQonCard, analysis.ironQon.empty);
+  } else {
+    for (const table of analysis.ironQon.tables) {
+      addSubhead(ironQonCard, table.title);
+      addTable(ironQonCard, table.columns, table.rows);
+    }
+  }
+
+  const leiShenCard = createCard("Lei Shen", "Intermission timing from Supercharge Conduits casts.");
+  if (analysis.leiShen.empty) {
+    addNote(leiShenCard, analysis.leiShen.empty);
+  } else {
+    for (const table of analysis.leiShen.tables) {
+      addSubhead(leiShenCard, table.title);
+      addTable(leiShenCard, table.columns, table.rows);
+    }
+  }
+
+  const tortosCard = createCard("Tortos", "Shell Concussion applications and uptime.");
+  if (analysis.tortos.empty) {
+    addNote(tortosCard, analysis.tortos.empty);
+  } else {
+    for (const table of analysis.tortos.tables) {
+      addSubhead(tortosCard, table.title);
+      addTable(tortosCard, table.columns, table.rows);
+    }
+  }
+}
+
+function renderCompare(analysisA, analysisB) {
+  const sections = [
+    {
+      title: "Overall",
+      desc: "Report comparison for clear stats.",
+      render: (analysis, container) => {
+        const card = createCard("Overall", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        addTable(card, analysis.overall.columns, analysis.overall.rows, { sortable: true });
+        addNote(card, analysis.overall.footer);
+      },
+    },
+    {
+      title: "Council of Elders",
+      desc: "Death order for elder bosses on kill pulls.",
+      render: (analysis, container) => {
+        const card = createCard("Council of Elders", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        if (analysis.council.empty) {
+          addNote(card, analysis.council.empty);
+        } else {
+          for (const table of analysis.council.tables) {
+            addSubhead(card, table.title);
+            addTable(card, table.columns, table.rows);
+          }
+        }
+      },
+    },
+    {
+      title: "Megaera",
+      desc: "Head death order and inferred final head.",
+      render: (analysis, container) => {
+        const card = createCard("Megaera", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        if (analysis.megaera.empty) {
+          addNote(card, analysis.megaera.empty);
+        } else {
+          for (const table of analysis.megaera.tables) {
+            addSubhead(card, table.title);
+            addTable(card, table.columns, table.rows);
+          }
+        }
+      },
+    },
+    {
+      title: "Iron Qon",
+      desc: "Dog death timing and windstorm markers.",
+      render: (analysis, container) => {
+        const card = createCard("Iron Qon", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        if (analysis.ironQon.empty) {
+          addNote(card, analysis.ironQon.empty);
+        } else {
+          for (const table of analysis.ironQon.tables) {
+            addSubhead(card, table.title);
+            addTable(card, table.columns, table.rows);
+          }
+        }
+      },
+    },
+    {
+      title: "Lei Shen",
+      desc: "Intermission timing from Supercharge Conduits casts.",
+      render: (analysis, container) => {
+        const card = createCard("Lei Shen", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        if (analysis.leiShen.empty) {
+          addNote(card, analysis.leiShen.empty);
+        } else {
+          for (const table of analysis.leiShen.tables) {
+            addSubhead(card, table.title);
+            addTable(card, table.columns, table.rows);
+          }
+        }
+      },
+    },
+    {
+      title: "Tortos",
+      desc: "Shell Concussion applications and uptime.",
+      render: (analysis, container) => {
+        const card = createCard("Tortos", `Report: ${analysis.report.title} (${analysis.reportCode})`, container);
+        if (analysis.tortos.empty) {
+          addNote(card, analysis.tortos.empty);
+        } else {
+          for (const table of analysis.tortos.tables) {
+            addSubhead(card, table.title);
+            addTable(card, table.columns, table.rows);
+          }
+        }
+      },
+    },
+  ];
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "compare";
+  resultsEl.appendChild(wrapper);
+
+  for (const section of sections) {
+    const row = document.createElement("div");
+    row.className = "compare-row";
+    wrapper.appendChild(row);
+
+    section.render(analysisA, row);
+    section.render(analysisB, row);
+  }
+}
+
 async function runAnalysis() {
   clearResults();
   const rawReport = reportInput.value.trim();
+  const rawReport2 = reportInput2.value.trim();
   const clientId = clientIdInput.value.trim();
   const clientSecret = clientSecretInput.value.trim();
   const reportCode = parseReportCode(rawReport) || DEFAULTS.reportCode;
+  const reportCode2 = parseReportCode(rawReport2);
   if (!reportCode) {
     setStatus("Enter a report URL or code.");
     return;
@@ -1020,79 +1211,22 @@ async function runAnalysis() {
   runBtn.disabled = true;
   setStatus("Requesting access token...");
   const baseUrl = parseBaseUrl(rawReport);
+  const baseUrl2 = rawReport2 ? parseBaseUrl(rawReport2) : baseUrl;
 
   try {
     const token = await fetchToken(clientId, clientSecret, baseUrl);
+    const token2 = rawReport2 && baseUrl2 !== baseUrl
+      ? await fetchToken(clientId, clientSecret, baseUrl2)
+      : token;
     setStatus("Fetching report data...");
-    const report = await fetchReport(baseUrl, token, reportCode);
-    const actors = report.masterData?.actors || [];
-    const playerIds = new Set(
-      actors
-        .filter((a) => a && (norm(a.type) === "player" || norm(a.subType) === "player"))
-        .map((a) => a.id)
-        .filter((id) => typeof id === "number")
-    );
-    const actorById = buildActorById(actors);
-
     setStatus("Generating outputs...");
-    const overall = await buildOverall(baseUrl, token, reportCode, report, playerIds);
-    const overallCard = createCard("Overall", `Report: ${report.title} (${reportCode})`);
-    addTable(overallCard, overall.columns, overall.rows, { sortable: true });
-    addNote(overallCard, overall.footer);
+    const analysisA = await buildAnalysis(baseUrl, token, reportCode);
 
-    const council = await buildCouncil(baseUrl, token, reportCode, report);
-    const councilCard = createCard("Council of Elders", "Death order for elder bosses on kill pulls.");
-    if (council.empty) {
-      addNote(councilCard, council.empty);
+    if (reportCode2) {
+      const analysisB = await buildAnalysis(baseUrl2, token2, reportCode2);
+      renderCompare(analysisA, analysisB);
     } else {
-      for (const table of council.tables) {
-        addSubhead(councilCard, table.title);
-        addTable(councilCard, table.columns, table.rows);
-      }
-    }
-
-    const megaera = await buildMegaera(baseUrl, token, reportCode, report);
-    const megaeraCard = createCard("Megaera", "Head death order and inferred final head.");
-    if (megaera.empty) {
-      addNote(megaeraCard, megaera.empty);
-    } else {
-      for (const table of megaera.tables) {
-        addSubhead(megaeraCard, table.title);
-        addTable(megaeraCard, table.columns, table.rows);
-      }
-    }
-
-    const ironQon = await buildIronQon(baseUrl, token, reportCode, report, actorById);
-    const ironQonCard = createCard("Iron Qon", "Dog death timing and windstorm markers.");
-    if (ironQon.empty) {
-      addNote(ironQonCard, ironQon.empty);
-    } else {
-      for (const table of ironQon.tables) {
-        addSubhead(ironQonCard, table.title);
-        addTable(ironQonCard, table.columns, table.rows);
-      }
-    }
-
-    const leiShen = await buildLeiShen(baseUrl, token, reportCode, report);
-    const leiShenCard = createCard("Lei Shen", "Intermission timing from Supercharge Conduits casts.");
-    if (leiShen.empty) {
-      addNote(leiShenCard, leiShen.empty);
-    } else {
-      for (const table of leiShen.tables) {
-        addSubhead(leiShenCard, table.title);
-        addTable(leiShenCard, table.columns, table.rows);
-      }
-    }
-
-    const tortos = await buildTortos(baseUrl, token, reportCode, report);
-    const tortosCard = createCard("Tortos", "Shell Concussion applications and uptime.");
-    if (tortos.empty) {
-      addNote(tortosCard, tortos.empty);
-    } else {
-      for (const table of tortos.tables) {
-        addSubhead(tortosCard, table.title);
-        addTable(tortosCard, table.columns, table.rows);
-      }
+      renderSingle(analysisA);
     }
 
     setStatus("Done.");
@@ -1110,6 +1244,7 @@ form.addEventListener("submit", (event) => {
 
 clearBtn.addEventListener("click", () => {
   reportInput.value = "";
+  reportInput2.value = "";
   clientIdInput.value = "";
   clientSecretInput.value = "";
   clearResults();
