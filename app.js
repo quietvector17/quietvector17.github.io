@@ -74,7 +74,61 @@ function createCard(title, description) {
   return card;
 }
 
-function addTable(card, columns, rows) {
+function parseSortValue(value) {
+  if (typeof value !== "string") return value;
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  if (/^\d+:\d{2}$/.test(trimmed)) {
+    const [m, s] = trimmed.split(":").map((n) => Number(n));
+    return m * 60 + s;
+  }
+  if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
+    return Number(trimmed);
+  }
+  return trimmed.toLowerCase();
+}
+
+function enableTableSorting(table, columns) {
+  const thead = table.querySelector("thead");
+  const tbody = table.querySelector("tbody");
+  if (!thead || !tbody) return;
+
+  const headers = Array.from(thead.querySelectorAll("th"));
+  const rows = Array.from(tbody.querySelectorAll("tr"));
+  const original = rows.map((row) => Array.from(row.children).map((cell) => cell.textContent));
+
+  headers.forEach((th, index) => {
+    th.classList.add("sortable");
+    th.setAttribute("aria-sort", "none");
+    th.addEventListener("click", () => {
+      const current = th.getAttribute("aria-sort");
+      const next = current === "ascending" ? "descending" : "ascending";
+      headers.forEach((h) => h.setAttribute("aria-sort", "none"));
+      th.setAttribute("aria-sort", next);
+
+      const sorted = [...original].sort((a, b) => {
+        const aVal = parseSortValue(a[index]);
+        const bVal = parseSortValue(b[index]);
+        if (aVal < bVal) return next === "ascending" ? -1 : 1;
+        if (aVal > bVal) return next === "ascending" ? 1 : -1;
+        return 0;
+      });
+
+      tbody.innerHTML = "";
+      for (const row of sorted) {
+        const tr = document.createElement("tr");
+        row.forEach((cell) => {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }
+    });
+  });
+}
+
+function addTable(card, columns, rows, options = {}) {
   const table = document.createElement("table");
   table.className = "data-table";
   const thead = document.createElement("thead");
@@ -98,6 +152,10 @@ function addTable(card, columns, rows) {
   }
   table.appendChild(tbody);
   card.appendChild(table);
+
+  if (options.sortable) {
+    enableTableSorting(table, columns);
+  }
 }
 
 function addSubhead(card, text) {
@@ -972,7 +1030,7 @@ async function runAnalysis() {
     setStatus("Generating outputs...");
     const overall = await buildOverall(baseUrl, token, reportCode, report, playerIds);
     const overallCard = createCard("Overall", `Report: ${report.title} (${reportCode})`);
-    addTable(overallCard, overall.columns, overall.rows);
+    addTable(overallCard, overall.columns, overall.rows, { sortable: true });
     addNote(overallCard, overall.footer);
 
     const council = await buildCouncil(baseUrl, token, reportCode, report);

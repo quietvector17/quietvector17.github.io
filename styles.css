@@ -211,6 +211,32 @@ button.ghost {
   text-transform: uppercase;
 }
 
+.data-table th.sortable {
+  cursor: pointer;
+  position: relative;
+  padding-right: 28px;
+}
+
+.data-table th.sortable::after {
+  content: "↕";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: #b08a73;
+}
+
+.data-table th.sortable[aria-sort="ascending"]::after {
+  content: "↑";
+  color: var(--accent-deep);
+}
+
+.data-table th.sortable[aria-sort="descending"]::after {
+  content: "↓";
+  color: var(--accent-deep);
+}
+
 .data-table tbody tr:nth-child(even) {
   background: #fbf6ec;
 }
