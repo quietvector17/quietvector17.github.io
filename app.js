@@ -666,6 +666,10 @@ async function buildMegaera(baseUrl, token, code, report) {
       let pretty = merged.map(([ts, label]) => `${label} ${relMmss(ts, fight.startTime)}`).join(", ");
       const lastDeath = merged[merged.length - 1][0];
       const windowEnd = Math.min(fight.endTime, lastDeath + 10000);
+      const wantedIds = new Set();
+      for (const ids of Object.values(headIds)) {
+        ids.forEach((id) => wantedIds.add(id));
+      }
       const dmgEvents = await fetchEventsPagedSimple(
         baseUrl,
         token,
@@ -680,7 +684,7 @@ async function buildMegaera(baseUrl, token, code, report) {
         const et = norm(e.type || "");
         if (et !== "damage") continue;
         const tid = e.targetID;
-        if (typeof tid !== "number") continue;
+        if (typeof tid !== "number" || !wantedIds.has(tid)) continue;
         const amount = typeof e.amount === "number" ? e.amount : 0;
         const absorbed = typeof e.absorbed === "number" ? e.absorbed : 0;
         dmgByTarget.set(tid, (dmgByTarget.get(tid) || 0) + amount + absorbed);
