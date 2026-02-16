@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ToT Fight Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero-top">
+          <p class="eyebrow">Throne of Thunder</p>
+          <h1>Fight Analysis Dashboard</h1>
+          <p class="lede">
+            Paste a Warcraft Logs report URL, add your client credentials, and generate fight breakdowns
+            for overall clears, Council of Elders, Megaera, Iron Qon, Lei Shen, and Tortos.
+          </p>
+        </div>
+        <div class="hero-panel">
+          <form id="analysis-form" class="form">
+            <label class="field">
+              <span>Report URL or Code</span>
+              <input id="report-input" type="text" placeholder="https://classic.warcraftlogs.com/reports/XXXX" />
+            </label>
+            <div class="field-row">
+              <label class="field">
+                <span>Client ID</span>
+                <input id="client-id" type="text" placeholder="WCL Client ID" />
+              </label>
+              <label class="field">
+                <span>Client Secret</span>
+                <input id="client-secret" type="password" placeholder="WCL Client Secret" />
+              </label>
+            </div>
+            <div class="actions">
+              <button id="run-btn" type="submit">Generate Analysis</button>
+              <button id="clear-btn" type="button" class="ghost">Clear</button>
+            </div>
+            <p class="hint">
+              Credentials are only used in your browser and are not stored anywhere.
+            </p>
+          </form>
+        </div>
+      </header>
+
+      <main>
+        <section class="status" id="status">
+          <span class="status-dot"></span>
+          <span id="status-text">Ready to analyze a report.</span>
+        </section>
+
+        <section class="results" id="results"></section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
