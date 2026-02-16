@@ -4,7 +4,7 @@ Static GitHub Pages site that generates Throne of Thunder fight breakdowns from 
 
 ## Live Site
 
-- https://ThrwatE.github.io
+- https://quietvector17.github.io
 
 ## What It Does
 

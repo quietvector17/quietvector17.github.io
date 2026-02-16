@@ -148,7 +148,7 @@ async function gql(baseUrl, token, query, variables) {
 
 async function fetchEventsPagedSimple(baseUrl, token, code, fightID, start, end, dataType, abilityID) {
   const query = `
-    query($code: String!, $fightID: Int!, $pageStart: Float!, $end: Float!, $dt: EventDataType!, $abilityID: Int) {
+    query($code: String!, $fightID: Int!, $pageStart: Float!, $end: Float!, $dt: EventDataType!, $abilityID: Float) {
       reportData {
         report(code: $code) {
           events(
