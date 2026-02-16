@@ -494,7 +494,10 @@ async function buildCouncil(baseUrl, token, code, report) {
     });
     const columns = ["Dur", ...ordered.map((o) => o[0])];
     const dur = mmssFromMs(fight.endTime - fight.startTime);
-    const values = [dur, ...ordered.map((o) => (typeof o[1] === "number" ? relMmss(o[1], fight.startTime) : "-"))];
+    const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
+    const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
+    columns.splice(1, 0, "Lust @");
+    const values = [dur, lustAt, ...ordered.map((o) => (typeof o[1] === "number" ? relMmss(o[1], fight.startTime) : "-"))];
     tables.push({
       title: `Fight ${fight.id}`,
       columns,
@@ -553,6 +556,9 @@ async function buildMegaera(baseUrl, token, code, report) {
 
     const dur = mmssFromMs(fight.endTime - fight.startTime);
     const rows = [["Kill duration", dur], ["Fight id", String(fight.id)]];
+    const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
+    const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
+    rows.push(["Lust @", lustAt]);
 
     if (merged.length) {
       let pretty = merged.map(([ts, label]) => `${label} ${relMmss(ts, fight.startTime)}`).join(", ");
@@ -621,6 +627,9 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
   for (const fight of kills) {
     const dur = mmssFromMs(fight.endTime - fight.startTime);
     const rows = [["Kill duration", dur], ["Fight id", String(fight.id)]];
+    const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
+    const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
+    rows.push(["Lust @", lustAt]);
 
     let ro25 = null;
     if (ironQonId) {
@@ -774,9 +783,12 @@ async function buildLeiShen(baseUrl, token, code, report) {
       .filter((ts) => typeof ts === "number")
       .sort((a, b) => a - b);
     const marks = times.filter((_, idx) => idx % 2 === 0);
+    const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
+    const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
     const rows = [
       ["Kill duration", mmssFromMs(fight.endTime - fight.startTime)],
       ["Fight id", String(fight.id)],
+      ["Lust @", lustAt],
       ["Intermission 1", marks[0] ? relMmss(marks[0], fight.startTime) : "-"],
       ["Intermission 2", marks[1] ? relMmss(marks[1], fight.startTime) : "-"],
     ];
@@ -872,7 +884,9 @@ async function buildTortos(baseUrl, token, code, report) {
     const fightLen = fight.endTime - fight.startTime;
     const uptimePct = fightLen > 0 ? (uptime / fightLen) * 100 : 0;
 
-    const rows = [["Kill duration", mmssFromMs(fightLen)], ["Fight id", String(fight.id)]];
+    const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
+    const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
+    const rows = [["Kill duration", mmssFromMs(fightLen)], ["Fight id", String(fight.id)], ["Lust @", lustAt]];
     if (!eventRows.length) {
       rows.push(["Shell Concussion", "No matching aura events found."]);
       tables.push({
