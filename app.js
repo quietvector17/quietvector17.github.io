@@ -61,19 +61,57 @@ function clearResults() {
   resultsEl.innerHTML = "";
 }
 
-function addCard(title, description, bodyText) {
+function createCard(title, description) {
   const card = document.createElement("section");
   card.className = "card";
   const h2 = document.createElement("h2");
   h2.textContent = title;
   const p = document.createElement("p");
   p.textContent = description;
-  const pre = document.createElement("pre");
-  pre.textContent = bodyText || "(no output)";
   card.appendChild(h2);
   card.appendChild(p);
-  card.appendChild(pre);
   resultsEl.appendChild(card);
+  return card;
+}
+
+function addTable(card, columns, rows) {
+  const table = document.createElement("table");
+  table.className = "data-table";
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  for (const col of columns) {
+    const th = document.createElement("th");
+    th.textContent = col;
+    headRow.appendChild(th);
+  }
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+  const tbody = document.createElement("tbody");
+  for (const row of rows) {
+    const tr = document.createElement("tr");
+    for (const cell of row) {
+      const td = document.createElement("td");
+      td.textContent = cell;
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  card.appendChild(table);
+}
+
+function addSubhead(card, text) {
+  const h3 = document.createElement("h3");
+  h3.className = "subhead";
+  h3.textContent = text;
+  card.appendChild(h3);
+}
+
+function addNote(card, text) {
+  const p = document.createElement("p");
+  p.className = "note";
+  p.textContent = text;
+  card.appendChild(p);
 }
 
 function mmssFromMs(ms) {
@@ -391,15 +429,20 @@ async function buildOverall(baseUrl, token, code, report, playerIds) {
 
   kills.sort((a, b) => a.fightId - b.fightId);
 
-  const bossWidth = Math.max(12, Math.min(32, ...kills.map((k) => k.boss.length)));
-  const header = `${"Boss".padEnd(bossWidth)}  ${"Dur".padStart(6)}  ${"Wipes".padStart(5)}  ${"Deaths".padStart(6)}  ${"Lust @".padStart(6)}  ${"FightID".padStart(6)}`;
-  const line = "-".repeat(bossWidth + 35);
+  const columns = ["Boss", "Dur", "Wipes", "Deaths", "Lust @", "FightID"];
   const rows = kills.map((k) => {
     const lust = typeof k.lustAt === "number" ? mmssFromMs(k.lustAt) : "-";
-    return `${k.boss.padEnd(bossWidth)}  ${mmssFromMs(k.duration).padStart(6)}  ${String(k.wipes).padStart(5)}  ${String(k.deaths).padStart(6)}  ${lust.padStart(6)}  ${String(k.fightId).padStart(6)}`;
+    return [
+      k.boss,
+      mmssFromMs(k.duration),
+      String(k.wipes),
+      String(k.deaths),
+      lust,
+      String(k.fightId),
+    ];
   });
-  const footer = `\nTotal kills: ${kills.length} | Total wipes (before kills): ${totalWipes}`;
-  return [header, line, ...rows, footer].join("\n");
+  const footer = `Total kills: ${kills.length} | Total wipes (before kills): ${totalWipes}`;
+  return { columns, rows, footer };
 }
 
 async function buildCouncil(baseUrl, token, code, report) {
@@ -407,7 +450,7 @@ async function buildCouncil(baseUrl, token, code, report) {
     (f) => f.name === "Council of Elders" && f.kill
   );
   if (!councilKills.length) {
-    return "No Council of Elders kills found.";
+    return { empty: "No Council of Elders kills found." };
   }
   const elderIds = {};
   for (const [label, subs] of Object.entries(ELDER_KEYS)) {
@@ -415,7 +458,7 @@ async function buildCouncil(baseUrl, token, code, report) {
     elderIds[label] = hits.map((h) => h.id).filter((id) => typeof id === "number");
   }
 
-  const lines = ["Council of Elders - Elder death times (KILLS ONLY)", "--------------------------------------------------"];
+  const tables = [];
 
   for (const fight of councilKills) {
     const deaths = {};
@@ -449,22 +492,22 @@ async function buildCouncil(baseUrl, token, code, report) {
       const bVal = typeof b[1] === "number" ? b[1] : Infinity;
       return aVal - bVal;
     });
-    const headers = ["Dur", ...ordered.map((o) => o[0])];
-    const widths = [6, ...ordered.map((o) => Math.max(7, o[0].length))];
-    const fmtRow = (cells) => cells.map((c, i) => String(c).padStart(widths[i])).join("  ");
-    lines.push("\n" + fmtRow(headers));
-    lines.push("-".repeat(widths.reduce((a, b) => a + b, 0) + 2 * (widths.length - 1)));
+    const columns = ["Dur", ...ordered.map((o) => o[0])];
     const dur = mmssFromMs(fight.endTime - fight.startTime);
     const values = [dur, ...ordered.map((o) => (typeof o[1] === "number" ? relMmss(o[1], fight.startTime) : "-"))];
-    lines.push(fmtRow(values));
+    tables.push({
+      title: `Fight ${fight.id}`,
+      columns,
+      rows: [values],
+    });
   }
 
-  return lines.join("\n");
+  return { tables };
 }
 
 async function buildMegaera(baseUrl, token, code, report) {
   const kills = report.fights.filter((f) => f.name === "Megaera" && f.kill);
-  if (!kills.length) return "No Megaera kills found.";
+  if (!kills.length) return { empty: "No Megaera kills found." };
 
   const headIds = {};
   for (const [label, subs] of Object.entries(HEAD_KEYS)) {
@@ -472,7 +515,7 @@ async function buildMegaera(baseUrl, token, code, report) {
     headIds[label] = hits.map((h) => h.id).filter((id) => typeof id === "number");
   }
 
-  const lines = ["Megaera - head death times (KILLS ONLY)", "--------------------------------------"];
+  const tables = [];
 
   for (const fight of kills) {
     const deaths = {};
@@ -509,7 +552,7 @@ async function buildMegaera(baseUrl, token, code, report) {
     merged.sort((a, b) => a[0] - b[0]);
 
     const dur = mmssFromMs(fight.endTime - fight.startTime);
-    lines.push(`\nKill duration: ${dur}   (fight id ${fight.id})`);
+    const rows = [["Kill duration", dur], ["Fight id", String(fight.id)]];
 
     if (merged.length) {
       let pretty = merged.map(([ts, label]) => `${label} ${relMmss(ts, fight.startTime)}`).join(", ");
@@ -547,18 +590,23 @@ async function buildMegaera(baseUrl, token, code, report) {
           pretty += `, ${inferred} ${relMmss(fight.endTime, fight.startTime)}`;
         }
       }
-      lines.push(`  Order   : ${pretty}`);
+      rows.push(["Order", pretty]);
     } else {
-      lines.push("  Order   : -");
+      rows.push(["Order", "-"]);
     }
+    tables.push({
+      title: `Fight ${fight.id}`,
+      columns: ["Metric", "Value"],
+      rows,
+    });
   }
 
-  return lines.join("\n");
+  return { tables };
 }
 
 async function buildIronQon(baseUrl, token, code, report, actorById) {
   const kills = report.fights.filter((f) => f.name === "Iron Qon" && f.kill);
-  if (!kills.length) return "No Iron Qon kills found.";
+  if (!kills.length) return { empty: "No Iron Qon kills found." };
 
   const dogIds = {};
   for (const [label, subs] of Object.entries(DOG_KEYS)) {
@@ -568,11 +616,11 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
   const ironQonHits = findActorIdsFuzzy(report.masterData.actors, ["iron", "qon"]);
   const ironQonId = ironQonHits.find((h) => typeof h.id === "number")?.id || null;
 
-  const lines = [];
+  const tables = [];
 
   for (const fight of kills) {
     const dur = mmssFromMs(fight.endTime - fight.startTime);
-    lines.push(`\nKill duration: ${dur}   (fight id ${fight.id})`);
+    const rows = [["Kill duration", dur], ["Fight id", String(fight.id)]];
 
     let ro25 = null;
     if (ironQonId) {
@@ -598,7 +646,7 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
         }
       }
     }
-    lines.push(`  Ro25%   : ${ro25 ? relMmss(ro25, fight.startTime) : "-"}`);
+    rows.push(["Ro25%", ro25 ? relMmss(ro25, fight.startTime) : "-"]);
 
     let wind = null;
     const debuffs = await fetchEventsPagedSimple(
@@ -622,7 +670,7 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
       wind = [ts, tid];
       break;
     }
-    lines.push(`  Windstorm : ${wind ? relMmss(wind[0], fight.startTime) : "-"}`);
+    rows.push(["Windstorm", wind ? relMmss(wind[0], fight.startTime) : "-"]);
 
     let quetHp = null;
     if (wind) {
@@ -651,7 +699,7 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
         quetHp = 100 * (1 - dmg / QUETZAL_MAX_HP);
       }
     }
-    lines.push(`  Quetzal HP @ Windstorm : ${quetHp === null ? "-" : `${quetHp.toFixed(1)}% (approx)`}`);
+    rows.push(["Quetzal HP @ Windstorm", quetHp === null ? "-" : `${quetHp.toFixed(1)}% (approx)`]);
 
     const deathEvents = await fetchEventsPagedSimple(
       baseUrl,
@@ -679,7 +727,7 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
     }
     for (const label of Object.keys(deaths)) {
       const times = deaths[label].sort((a, b) => a - b).map((ts) => relMmss(ts, fight.startTime));
-      lines.push(`  ${label.padEnd(8)}: ${times.length ? times.join(", ") : "-"}`);
+      rows.push([label, times.length ? times.join(", ") : "-"]);
     }
     const merged = [];
     for (const [label, tsList] of Object.entries(deaths)) {
@@ -689,19 +737,25 @@ async function buildIronQon(baseUrl, token, code, report, actorById) {
     if (merged.length) {
       let pretty = merged.map(([ts, label]) => `${label} ${relMmss(ts, fight.startTime)}`).join(", ");
       pretty += `, Iron Qon ${dur}`;
-      lines.push(`  Order   : ${pretty}`);
+      rows.push(["Order", pretty]);
     } else {
-      lines.push("  Order   : -");
+      rows.push(["Order", "-"]);
     }
+
+    tables.push({
+      title: `Fight ${fight.id}`,
+      columns: ["Metric", "Value"],
+      rows,
+    });
   }
 
-  return lines.join("\n");
+  return { tables };
 }
 
 async function buildLeiShen(baseUrl, token, code, report) {
   const kills = report.fights.filter((f) => f.name === "Lei Shen" && f.kill);
-  if (!kills.length) return "No Lei Shen kills found.";
-  const lines = ["Lei Shen - intermission times (KILLS ONLY)", "-----------------------------------------", "Marker: cast ability 137045 (Supercharge Conduits)", ""];
+  if (!kills.length) return { empty: "No Lei Shen kills found." };
+  const tables = [];
 
   for (const fight of kills) {
     const casts = await fetchEventsPagedSimple(
@@ -720,29 +774,36 @@ async function buildLeiShen(baseUrl, token, code, report) {
       .filter((ts) => typeof ts === "number")
       .sort((a, b) => a - b);
     const marks = times.filter((_, idx) => idx % 2 === 0);
-    lines.push(`Kill duration: ${mmssFromMs(fight.endTime - fight.startTime)}   (fight id ${fight.id})`);
-    lines.push(`  Intermission 1: ${marks[0] ? relMmss(marks[0], fight.startTime) : "-"}`);
-    lines.push(`  Intermission 2: ${marks[1] ? relMmss(marks[1], fight.startTime) : "-"}`);
+    const rows = [
+      ["Kill duration", mmssFromMs(fight.endTime - fight.startTime)],
+      ["Fight id", String(fight.id)],
+      ["Intermission 1", marks[0] ? relMmss(marks[0], fight.startTime) : "-"],
+      ["Intermission 2", marks[1] ? relMmss(marks[1], fight.startTime) : "-"],
+    ];
     if (marks.length > 2) {
       const extra = marks.slice(2).map((ts) => relMmss(ts, fight.startTime)).join(", ");
-      lines.push(`  Extra intermissions: ${extra}`);
+      rows.push(["Extra intermissions", extra]);
     }
-    lines.push("");
+    tables.push({
+      title: `Fight ${fight.id}`,
+      columns: ["Metric", "Value"],
+      rows,
+    });
   }
-  return lines.join("\n");
+  return { tables };
 }
 
 async function buildTortos(baseUrl, token, code, report) {
   const kills = report.fights.filter((f) => f.name === "Tortos" && f.kill);
-  if (!kills.length) return "No 'Tortos' kills found.";
+  if (!kills.length) return { empty: "No 'Tortos' kills found." };
 
   const tortosHits = findActorIdsFuzzy(report.masterData.actors, ["tortos"]);
   const tortosIds = tortosHits.map((h) => h.id).filter((id) => typeof id === "number");
   if (!tortosIds.length) {
-    return "Could not find any Tortos actor IDs from masterData.actors.";
+    return { empty: "Could not find any Tortos actor IDs from masterData.actors." };
   }
 
-  const lines = ["Tortos - Shell Concussion stats (KILLS ONLY)", "--------------------------------------------"];
+  const tables = [];
 
   for (const fight of kills) {
     const events = await fetchEventsPagedHostile(
@@ -757,7 +818,7 @@ async function buildTortos(baseUrl, token, code, report) {
       true
     );
 
-    const rows = [];
+    const eventRows = [];
     for (const e of events) {
       const et = norm(e.type || "");
       if (!AURA_TYPES.has(et)) continue;
@@ -767,9 +828,9 @@ async function buildTortos(baseUrl, token, code, report) {
       if (typeof ts !== "number") continue;
       const abilityId = getAbilityId(e);
       if (abilityId !== ABILITIES.shellConcussion) continue;
-      rows.push([ts, et]);
+      eventRows.push([ts, et]);
     }
-    rows.sort((a, b) => a[0] - b[0]);
+    eventRows.sort((a, b) => a[0] - b[0]);
 
     let active = false;
     let activeStart = null;
@@ -781,7 +842,7 @@ async function buildTortos(baseUrl, token, code, report) {
     const isRefresh = (t) => ["refreshdebuff", "refreshdebuffstack", "refreshbuff", "refreshbuffstack"].includes(t);
     const isRemove = (t) => ["removedebuff", "removebuff"].includes(t);
 
-    for (const [ts, et] of rows) {
+    for (const [ts, et] of eventRows) {
       if (isApply(et)) {
         if (!active) {
           applications += 1;
@@ -811,55 +872,28 @@ async function buildTortos(baseUrl, token, code, report) {
     const fightLen = fight.endTime - fight.startTime;
     const uptimePct = fightLen > 0 ? (uptime / fightLen) * 100 : 0;
 
-    lines.push(`\nKill duration: ${mmssFromMs(fightLen)}   (fight id ${fight.id})`);
-    if (!rows.length) {
-      lines.push("  Found 0 matching aura events on Tortos (Enemies/Debuffs stream).");
-      lines.push("  SANITY sample of Debuffs aura events targeting Tortos:");
-      let shown = 0;
-      for (const e of events) {
-        const et = norm(e.type || "");
-        if (!AURA_TYPES.has(et)) continue;
-        const tid = getTargetId(e);
-        if (!tortosIds.includes(tid)) continue;
-        const abName = getAbilityName(e) || "<?>";
-        const abId = getAbilityId(e);
-        lines.push(`  SANITY: ${et.padEnd(18)} ts=${e.timestamp}  ability='${abName}' id=${abId}`);
-        shown += 1;
-        if (shown >= 12) break;
-      }
-      if (shown === 0) {
-        lines.push("  SANITY: saw ZERO Debuffs aura events targeting Tortos in Enemies stream.");
-      }
-
-      const counter = new Map();
-      for (const e of events) {
-        const et = norm(e.type || "");
-        if (!AURA_TYPES.has(et)) continue;
-        const tid = getTargetId(e);
-        if (!tortosIds.includes(tid)) continue;
-        const name = getAbilityName(e) || "<?>";
-        const id = getAbilityId(e);
-        const key = `${name} (id=${id})`;
-        counter.set(key, (counter.get(key) || 0) + 1);
-      }
-      lines.push("\n  Top aura names applied to Tortos (Enemies/Debuffs stream):");
-      const top = [...counter.entries()].sort((a, b) => b[1] - a[1]).slice(0, 25);
-      if (!top.length) {
-        lines.push("    (none)");
-      } else {
-        for (const [name, cnt] of top) {
-          lines.push(`    ${name.padEnd(45)}  ${cnt}`);
-        }
-      }
+    const rows = [["Kill duration", mmssFromMs(fightLen)], ["Fight id", String(fight.id)]];
+    if (!eventRows.length) {
+      rows.push(["Shell Concussion", "No matching aura events found."]);
+      tables.push({
+        title: `Fight ${fight.id}`,
+        columns: ["Metric", "Value"],
+        rows,
+      });
       continue;
     }
 
     const timesStr = appTimes.map((t) => relMmss(t, fight.startTime)).join(", ");
-    lines.push(`  Applications: ${applications} (${timesStr})`);
-    lines.push(`  Uptime      : ${mmssFromMs(uptime)} (${uptimePct.toFixed(1)}%)`);
+    rows.push(["Applications", `${applications} (${timesStr})`]);
+    rows.push(["Uptime", `${mmssFromMs(uptime)} (${uptimePct.toFixed(1)}%)`]);
+    tables.push({
+      title: `Fight ${fight.id}`,
+      columns: ["Metric", "Value"],
+      rows,
+    });
   }
 
-  return lines.join("\n");
+  return { tables };
 }
 
 async function runAnalysis() {
@@ -896,22 +930,64 @@ async function runAnalysis() {
 
     setStatus("Generating outputs...");
     const overall = await buildOverall(baseUrl, token, reportCode, report, playerIds);
-    addCard("Overall", `Report: ${report.title} (${reportCode})`, overall);
+    const overallCard = createCard("Overall", `Report: ${report.title} (${reportCode})`);
+    addTable(overallCard, overall.columns, overall.rows);
+    addNote(overallCard, overall.footer);
 
     const council = await buildCouncil(baseUrl, token, reportCode, report);
-    addCard("Council of Elders", "Death order for elder bosses on kill pulls.", council);
+    const councilCard = createCard("Council of Elders", "Death order for elder bosses on kill pulls.");
+    if (council.empty) {
+      addNote(councilCard, council.empty);
+    } else {
+      for (const table of council.tables) {
+        addSubhead(councilCard, table.title);
+        addTable(councilCard, table.columns, table.rows);
+      }
+    }
 
     const megaera = await buildMegaera(baseUrl, token, reportCode, report);
-    addCard("Megaera", "Head death order and inferred final head.", megaera);
+    const megaeraCard = createCard("Megaera", "Head death order and inferred final head.");
+    if (megaera.empty) {
+      addNote(megaeraCard, megaera.empty);
+    } else {
+      for (const table of megaera.tables) {
+        addSubhead(megaeraCard, table.title);
+        addTable(megaeraCard, table.columns, table.rows);
+      }
+    }
 
     const ironQon = await buildIronQon(baseUrl, token, reportCode, report, actorById);
-    addCard("Iron Qon", "Dog death timing and windstorm markers.", ironQon);
+    const ironQonCard = createCard("Iron Qon", "Dog death timing and windstorm markers.");
+    if (ironQon.empty) {
+      addNote(ironQonCard, ironQon.empty);
+    } else {
+      for (const table of ironQon.tables) {
+        addSubhead(ironQonCard, table.title);
+        addTable(ironQonCard, table.columns, table.rows);
+      }
+    }
 
     const leiShen = await buildLeiShen(baseUrl, token, reportCode, report);
-    addCard("Lei Shen", "Intermission timing from Supercharge Conduits casts.", leiShen);
+    const leiShenCard = createCard("Lei Shen", "Intermission timing from Supercharge Conduits casts.");
+    if (leiShen.empty) {
+      addNote(leiShenCard, leiShen.empty);
+    } else {
+      for (const table of leiShen.tables) {
+        addSubhead(leiShenCard, table.title);
+        addTable(leiShenCard, table.columns, table.rows);
+      }
+    }
 
     const tortos = await buildTortos(baseUrl, token, reportCode, report);
-    addCard("Tortos", "Shell Concussion applications and uptime.", tortos);
+    const tortosCard = createCard("Tortos", "Shell Concussion applications and uptime.");
+    if (tortos.empty) {
+      addNote(tortosCard, tortos.empty);
+    } else {
+      for (const table of tortos.tables) {
+        addSubhead(tortosCard, table.title);
+        addTable(tortosCard, table.columns, table.rows);
+      }
+    }
 
     setStatus("Done.");
   } catch (err) {
