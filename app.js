@@ -401,6 +401,47 @@ async function getHeroismTimestamp(baseUrl, token, code, fight) {
   return Math.min(...timestamps);
 }
 
+async function getLeiShenIntermissionCasts(baseUrl, token, code, fight) {
+  const casts = await fetchEventsPagedSimple(
+    baseUrl,
+    token,
+    code,
+    fight.id,
+    fight.startTime,
+    fight.endTime,
+    "Casts",
+    ABILITIES.superchargeConduits
+  );
+  let times = casts
+    .filter((e) => norm(e.type || "") === "startcast")
+    .map((e) => e.timestamp)
+    .filter((ts) => typeof ts === "number");
+
+  if (times.length) {
+    times.sort((a, b) => a - b);
+    return times;
+  }
+
+  const allEvents = await fetchEventsPagedSimple(
+    baseUrl,
+    token,
+    code,
+    fight.id,
+    fight.startTime,
+    fight.endTime,
+    "All",
+    null
+  );
+  times = allEvents
+    .filter((e) => ["begincast", "cast", "startcast"].includes(norm(e.type || "")))
+    .filter((e) => getAbilityId(e) === ABILITIES.superchargeConduits)
+    .map((e) => e.timestamp)
+    .filter((ts) => typeof ts === "number");
+
+  times.sort((a, b) => a - b);
+  return times;
+}
+
 async function buildOverall(baseUrl, token, code, report, playerIds) {
   const kills = [];
   let totalWipes = 0;
@@ -767,21 +808,7 @@ async function buildLeiShen(baseUrl, token, code, report) {
   const tables = [];
 
   for (const fight of kills) {
-    const casts = await fetchEventsPagedSimple(
-      baseUrl,
-      token,
-      code,
-      fight.id,
-      fight.startTime,
-      fight.endTime,
-      "Casts",
-      ABILITIES.superchargeConduits
-    );
-    const times = casts
-      .filter((e) => norm(e.type || "") === "startcast")
-      .map((e) => e.timestamp)
-      .filter((ts) => typeof ts === "number")
-      .sort((a, b) => a - b);
+    const times = await getLeiShenIntermissionCasts(baseUrl, token, code, fight);
     const marks = times.filter((_, idx) => idx % 2 === 0);
     const heroTs = await getHeroismTimestamp(baseUrl, token, code, fight);
     const lustAt = typeof heroTs === "number" ? relMmss(heroTs, fight.startTime) : "-";
