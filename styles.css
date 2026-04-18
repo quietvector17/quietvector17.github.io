@@ -229,6 +229,16 @@ button.ghost {
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.95em;
+  font-weight: 650;
+  color: var(--accent-deep);
+  background: rgba(194, 100, 59, 0.08);
+  border: 1px solid rgba(214, 203, 184, 0.9);
+  padding: 0.08em 0.35em;
+  border-radius: 8px;
+}
+
+.prose strong {
+  color: var(--ink);
 }
 
 .prose ul,
@@ -239,6 +249,49 @@ button.ghost {
 
 .prose li {
   margin: 6px 0;
+}
+
+.prose details.boss {
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  background: #fffdf8;
+  margin: 14px 0;
+  overflow: clip;
+}
+
+.prose details.boss > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-family: "Fraunces", "Georgia", serif;
+  font-size: 1.35rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.prose details.boss > summary::-webkit-details-marker {
+  display: none;
+}
+
+.prose details.boss > summary::after {
+  content: "▾";
+  color: var(--accent-deep);
+  font-size: 1.1rem;
+}
+
+.prose details.boss[open] > summary::after {
+  content: "▴";
+}
+
+.prose .boss-body {
+  padding: 0 16px 14px;
+}
+
+.prose details.boss[open] > summary {
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .subhead {

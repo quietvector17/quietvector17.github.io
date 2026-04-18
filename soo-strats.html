@@ -55,8 +55,42 @@
           const md = await res.text();
           const html = marked.parse(md);
           contentEl.innerHTML = DOMPurify.sanitize(html);
+          applyBossCollapsibles(contentEl);
         } catch (err) {
           contentEl.innerHTML = `<p class="note">Could not load <code>SoO Strats.md</code>. ${String(err)}</p>`;
+        }
+      }
+
+      function applyBossCollapsibles(root) {
+        // Treat Markdown `##` headings as boss sections.
+        // Keep the page usable by letting you collapse each boss.
+        const h2s = Array.from(root.querySelectorAll("h2"));
+        if (!h2s.length) return;
+
+        for (let i = 0; i < h2s.length; i++) {
+          const h2 = h2s[i];
+          const details = document.createElement("details");
+          details.className = "boss";
+          // Open the first boss by default.
+          if (i === 0) details.open = true;
+
+          const summary = document.createElement("summary");
+          summary.textContent = h2.textContent || "Section";
+          details.appendChild(summary);
+
+          const body = document.createElement("div");
+          body.className = "boss-body";
+
+          // Move everything after the h2 into this details until the next h2.
+          let node = h2.nextSibling;
+          while (node && !(node.nodeType === 1 && node.tagName === "H2")) {
+            const next = node.nextSibling;
+            body.appendChild(node);
+            node = next;
+          }
+
+          details.appendChild(body);
+          h2.replaceWith(details);
         }
       }
 
