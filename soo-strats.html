@@ -75,7 +75,11 @@
           if (i === 0) details.open = true;
 
           const summary = document.createElement("summary");
-          summary.textContent = h2.textContent || "Section";
+          const title = h2.textContent || "Section";
+          const titleSpan = document.createElement("span");
+          titleSpan.className = "boss-title";
+          titleSpan.textContent = title;
+          summary.appendChild(titleSpan);
           details.appendChild(summary);
 
           const body = document.createElement("div");
@@ -89,9 +93,99 @@
             node = next;
           }
 
+          const heroicCount = markHeroicContent(body);
+          if (heroicCount > 0) {
+            details.classList.add("heroic-off");
+            const toggle = createHeroicToggle(title, details);
+            summary.appendChild(toggle);
+          }
+
           details.appendChild(body);
           h2.replaceWith(details);
         }
+      }
+
+      function createHeroicToggle(title, detailsEl) {
+        const wrap = document.createElement("span");
+        wrap.className = "heroic-toggle";
+
+        const id = `heroic-toggle-${slug(title)}-${Math.random().toString(16).slice(2)}`;
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = id;
+        input.checked = false;
+
+        const label = document.createElement("label");
+        label.htmlFor = id;
+        label.textContent = "Heroic";
+
+        // Avoid toggling the <details> open/closed when interacting with the checkbox.
+        for (const el of [wrap, input, label]) {
+          el.addEventListener("click", (e) => e.stopPropagation());
+          el.addEventListener("pointerdown", (e) => e.stopPropagation());
+        }
+
+        input.addEventListener("change", () => {
+          detailsEl.classList.toggle("heroic-off", !input.checked);
+        });
+
+        wrap.appendChild(input);
+        wrap.appendChild(label);
+        return wrap;
+      }
+
+      function slug(text) {
+        return String(text || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 40);
+      }
+
+      function markHeroicContent(root) {
+        const heroicPrefix = /^\s*heroic\b\s*[:\-]?/i;
+        let count = 0;
+
+        // 1) Wrap sections that are explicitly labeled as "Heroic" headings.
+        const headings = Array.from(root.querySelectorAll("h3, h4, h5, h6"));
+        for (const h of headings) {
+          if (!heroicPrefix.test(h.textContent || "")) continue;
+          if (h.closest(".heroic-only")) continue;
+
+          const level = Number(h.tagName.slice(1));
+          const wrapper = document.createElement("div");
+          wrapper.className = "heroic-only";
+          h.parentNode.insertBefore(wrapper, h);
+
+          let node = h;
+          while (node) {
+            const next = node.nextSibling;
+            if (node.nodeType === 1) {
+              const tag = node.tagName;
+              const isHeading = /^H[3-6]$/.test(tag);
+              if (isHeading) {
+                const nextLevel = Number(tag.slice(1));
+                if (node !== h && nextLevel <= level) break;
+              }
+            }
+            wrapper.appendChild(node);
+            node = next;
+          }
+
+          count += 1;
+        }
+
+        // 2) Hide individual lines that start with "Heroic:" (common inline callouts).
+        const lineEls = Array.from(root.querySelectorAll("li, p"));
+        for (const el of lineEls) {
+          if (el.closest(".heroic-only")) continue;
+          const text = (el.textContent || "").trim();
+          if (!heroicPrefix.test(text)) continue;
+          el.classList.add("heroic-only");
+          count += 1;
+        }
+
+        return count;
       }
 
       load();
