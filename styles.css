@@ -276,24 +276,13 @@ button.ghost {
   flex: 1;
 }
 
-.prose .heroic-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 0.9rem;
-  color: var(--muted);
-  user-select: none;
+.prose .heroic-marker {
+  color: var(--ink);
 }
 
-.prose .heroic-toggle input {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-}
-
-.prose details.boss.heroic-off .heroic-only {
-  display: none;
+.prose .heroic-skull {
+  color: var(--accent-deep);
+  font-weight: 800;
 }
 
 .prose details.boss > summary::-webkit-details-marker {

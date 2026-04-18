@@ -93,99 +93,57 @@
             node = next;
           }
 
-          const heroicCount = markHeroicContent(body);
-          if (heroicCount > 0) {
-            details.classList.add("heroic-off");
-            const toggle = createHeroicToggle(title, details);
-            summary.appendChild(toggle);
-          }
+          decorateHeroicMarkers(body);
 
           details.appendChild(body);
           h2.replaceWith(details);
         }
       }
 
-      function createHeroicToggle(title, detailsEl) {
-        const wrap = document.createElement("span");
-        wrap.className = "heroic-toggle";
-
-        const id = `heroic-toggle-${slug(title)}-${Math.random().toString(16).slice(2)}`;
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = id;
-        input.checked = false;
-
-        const label = document.createElement("label");
-        label.htmlFor = id;
-        label.textContent = "Heroic";
-
-        // Avoid toggling the <details> open/closed when interacting with the checkbox.
-        for (const el of [wrap, input, label]) {
-          el.addEventListener("click", (e) => e.stopPropagation());
-          el.addEventListener("pointerdown", (e) => e.stopPropagation());
-        }
-
-        input.addEventListener("change", () => {
-          detailsEl.classList.toggle("heroic-off", !input.checked);
-        });
-
-        wrap.appendChild(input);
-        wrap.appendChild(label);
-        return wrap;
-      }
-
-      function slug(text) {
-        return String(text || "")
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-+|-+$/g, "")
-          .slice(0, 40);
-      }
-
-      function markHeroicContent(root) {
+      function decorateHeroicMarkers(root) {
         const heroicPrefix = /^\s*heroic\b\s*[:\-]?/i;
-        let count = 0;
+        const candidates = Array.from(root.querySelectorAll("h3, h4, h5, h6, li, p"));
 
-        // 1) Wrap sections that are explicitly labeled as "Heroic" headings.
-        const headings = Array.from(root.querySelectorAll("h3, h4, h5, h6"));
-        for (const h of headings) {
-          if (!heroicPrefix.test(h.textContent || "")) continue;
-          if (h.closest(".heroic-only")) continue;
-
-          const level = Number(h.tagName.slice(1));
-          const wrapper = document.createElement("div");
-          wrapper.className = "heroic-only";
-          h.parentNode.insertBefore(wrapper, h);
-
-          let node = h;
-          while (node) {
-            const next = node.nextSibling;
-            if (node.nodeType === 1) {
-              const tag = node.tagName;
-              const isHeading = /^H[3-6]$/.test(tag);
-              if (isHeading) {
-                const nextLevel = Number(tag.slice(1));
-                if (node !== h && nextLevel <= level) break;
-              }
-            }
-            wrapper.appendChild(node);
-            node = next;
-          }
-
-          count += 1;
-        }
-
-        // 2) Hide individual lines that start with "Heroic:" (common inline callouts).
-        const lineEls = Array.from(root.querySelectorAll("li, p"));
-        for (const el of lineEls) {
-          if (el.closest(".heroic-only")) continue;
+        for (const el of candidates) {
+          if (el.classList.contains("heroic-marker")) continue;
           const text = (el.textContent || "").trim();
           if (!heroicPrefix.test(text)) continue;
-          el.classList.add("heroic-only");
-          count += 1;
-        }
 
-        return count;
+          uppercaseHeroicPrefix(el);
+          prependSkull(el);
+          el.classList.add("heroic-marker");
+        }
+      }
+
+      function uppercaseHeroicPrefix(el) {
+        // Uppercase the leading "Heroic" in the first meaningful text node.
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        let node = walker.nextNode();
+        while (node) {
+          const value = node.nodeValue || "";
+          const trimmed = value.trimStart();
+          const leadingWs = value.slice(0, value.length - trimmed.length);
+          if (!trimmed) {
+            node = walker.nextNode();
+            continue;
+          }
+          if (/^heroic\b/i.test(trimmed)) {
+            node.nodeValue = leadingWs + trimmed.replace(/^heroic\b/i, "HEROIC");
+          }
+          return;
+        }
+      }
+
+      function prependSkull(el) {
+        if (el.querySelector(":scope > .heroic-skull")) return;
+        const skull = document.createElement("span");
+        skull.className = "heroic-skull";
+        skull.setAttribute("aria-hidden", "true");
+        skull.textContent = "☠";
+
+        // Use a plain text space after the skull for consistent wrapping.
+        el.insertBefore(document.createTextNode(" "), el.firstChild);
+        el.insertBefore(skull, el.firstChild);
       }
 
       load();
