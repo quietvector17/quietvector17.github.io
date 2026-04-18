@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SoO Strategies | ToT Fight Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero-top">
+          <p class="eyebrow">Siege of Orgrimmar</p>
+          <h1>Raid Strategies</h1>
+          <p class="lede">Rendered from <code>SoO Strats.md</code> in this repo.</p>
+          <p class="hint"><a href="index.html">Back to Fight Analysis Dashboard</a></p>
+        </div>
+        <div class="hero-panel">
+          <p class="hint" style="margin: 0">
+            Tip: edit <code>SoO Strats.md</code> and refresh this page.
+          </p>
+        </div>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>SoO Strats</h2>
+          <div id="content" class="prose">
+            <p class="note">Loading…</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+    <script>
+      const contentEl = document.getElementById("content");
+
+      marked.setOptions({
+        gfm: true,
+        breaks: false,
+      });
+
+      async function load() {
+        try {
+          const res = await fetch("SoO%20Strats.md", { cache: "no-store" });
+          if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+          const md = await res.text();
+          const html = marked.parse(md);
+          contentEl.innerHTML = DOMPurify.sanitize(html);
+        } catch (err) {
+          contentEl.innerHTML = `<p class="note">Could not load <code>SoO Strats.md</code>. ${String(err)}</p>`;
+        }
+      }
+
+      load();
+    </script>
+  </body>
+</html>

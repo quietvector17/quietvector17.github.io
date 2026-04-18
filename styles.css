@@ -22,6 +22,14 @@ body {
   color: var(--ink);
 }
 
+a {
+  color: var(--accent-deep);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
 .page {
   max-width: 1100px;
   margin: 0 auto;
@@ -185,6 +193,52 @@ button.ghost {
 .card p {
   margin: 0 0 16px;
   color: var(--muted);
+}
+
+.prose {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: var(--ink);
+}
+
+.prose h1 {
+  font-family: "Fraunces", "Georgia", serif;
+  font-size: 2rem;
+  margin: 0 0 12px;
+}
+
+.prose h2 {
+  font-family: "Fraunces", "Georgia", serif;
+  font-size: 1.5rem;
+  margin: 22px 0 10px;
+}
+
+.prose h3 {
+  font-size: 1.05rem;
+  margin: 18px 0 8px;
+  color: var(--accent-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 16px;
+  padding-left: 20px;
+}
+
+.prose li {
+  margin: 6px 0;
 }
 
 .subhead {
