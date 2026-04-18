@@ -1,13 +1,13 @@
 :root {
-  color-scheme: light;
-  --bg: #f5f1e8;
-  --ink: #1d2321;
-  --muted: #5b5f57;
-  --accent: #c2643b;
-  --accent-deep: #8d3e23;
-  --panel: #ffffff;
-  --panel-border: #e6dccb;
-  --shadow: 0 20px 40px rgba(29, 35, 33, 0.12);
+  color-scheme: dark;
+  --bg: #0b0f14;
+  --ink: #e7ecef;
+  --muted: #a7b0bb;
+  --accent: #ff6a3d;
+  --accent-deep: #ff3d85;
+  --panel: #101826;
+  --panel-border: #233247;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
   --radius: 18px;
 }
 
@@ -18,7 +18,7 @@
 body {
   margin: 0;
   font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
-  background: radial-gradient(circle at top left, #fff7ea, var(--bg));
+  background: radial-gradient(circle at top left, #1b2a3d, var(--bg));
   color: var(--ink);
 }
 
@@ -96,13 +96,18 @@ a:hover {
 input {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #d6cbb8;
+  border: 1px solid #2b3b52;
   font-size: 0.95rem;
-  background: #fffdf8;
+  background: #0c1320;
+  color: var(--ink);
+}
+
+input::placeholder {
+  color: rgba(167, 176, 187, 0.75);
 }
 
 input:focus {
-  outline: 2px solid rgba(194, 100, 59, 0.3);
+  outline: 2px solid rgba(255, 106, 61, 0.25);
   border-color: var(--accent);
 }
 
@@ -117,16 +122,16 @@ button {
   border-radius: 999px;
   border: none;
   background: var(--accent);
-  color: #fffaf0;
+  color: #0b0f14;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 12px 20px rgba(141, 62, 35, 0.2);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45);
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 24px rgba(141, 62, 35, 0.25);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
 }
 
 button.ghost {
@@ -155,8 +160,8 @@ button.ghost {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #7bb661;
-  box-shadow: 0 0 0 6px rgba(123, 182, 97, 0.2);
+  background: #42d392;
+  box-shadow: 0 0 0 6px rgba(66, 211, 146, 0.18);
 }
 
 .results {
@@ -230,9 +235,9 @@ button.ghost {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.95em;
   font-weight: 650;
-  color: var(--accent-deep);
-  background: rgba(194, 100, 59, 0.08);
-  border: 1px solid rgba(214, 203, 184, 0.9);
+  color: #ffd2e7;
+  background: rgba(255, 61, 133, 0.12);
+  border: 1px solid rgba(255, 61, 133, 0.25);
   padding: 0.08em 0.35em;
   border-radius: 8px;
 }
@@ -254,7 +259,7 @@ button.ghost {
 .prose details.boss {
   border: 1px solid var(--panel-border);
   border-radius: 14px;
-  background: #fffdf8;
+  background: rgba(255, 255, 255, 0.02);
   margin: 14px 0;
   overflow: clip;
 }
@@ -356,7 +361,7 @@ button.ghost {
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.8rem;
-  color: #b08a73;
+  color: rgba(255, 255, 255, 0.28);
 }
 
 .data-table th.sortable[aria-sort="ascending"]::after {
@@ -370,12 +375,12 @@ button.ghost {
 }
 
 .data-table tbody tr:nth-child(even) {
-  background: #fbf6ec;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 pre {
-  background: #111412;
-  color: #f7f2e7;
+  background: #070a10;
+  color: #e7ecef;
   padding: 16px;
   border-radius: 12px;
   overflow-x: auto;
