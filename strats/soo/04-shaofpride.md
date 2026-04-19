@@ -36,12 +36,12 @@
 - 100 Energy: `Swelling Pride`
   - Grants 5 Pride to everyone hit.
   - Additional effects based on your Pride:
-    - >25 Pride: swirly effect underneath you, move out.
-    - >50 Pride: projection spawns within 15 yards and explodes.
-      - Move to your void zone (green arrow marker).
-    - >75 Pride: `Aura of Pride` for 25s.
+    - **25 Pride**: swirly effect underneath you, move out.
+    - **50 Pride**: projection spawns within 15 yards and explodes.
+      - ***Move to your void zone (green arrow marker).***
+    - **75 Pride**: `Aura of Pride` for 25s.
       - Pulsing AoE around you; get away from people.
-    - 100 Pride: permanently mind controlled.
+    - **100 Pride**: permanently mind controlled.
       - First time you reach 100: +50% damage and healing for 15s.
 
 #### Heroic notes

@@ -97,10 +97,102 @@
           }
 
           decorateHeroicMarkers(body);
+          embedYouTubeLinks(body);
 
           details.appendChild(body);
           h2.replaceWith(details);
         }
+      }
+
+      function embedYouTubeLinks(root) {
+        // DOMPurify will strip iframes if they come from Markdown HTML.
+        // Instead, we create safe iframes programmatically for YouTube links.
+        const links = Array.from(root.querySelectorAll('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]'));
+        for (const a of links) {
+          const href = a.getAttribute("href") || "";
+          const info = parseYouTubeUrl(href);
+          if (!info) continue;
+
+          // Only auto-embed links that look like intentional "path" references.
+          const container = a.closest("li, p");
+          const contextText = ((container && container.textContent) || "").toLowerCase();
+          if (!contextText.includes("path")) continue;
+
+          // Avoid duplicating embeds if the content is reprocessed.
+          if (container && container.querySelector(":scope > .video-embed")) continue;
+
+          const wrap = document.createElement("div");
+          wrap.className = "video-embed";
+
+          const inner = document.createElement("div");
+          inner.className = "video-embed-inner";
+
+          const iframe = document.createElement("iframe");
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          iframe.allowFullscreen = true;
+          iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+          const params = new URLSearchParams();
+          params.set("rel", "0");
+          params.set("modestbranding", "1");
+          if (info.startSeconds) params.set("start", String(info.startSeconds));
+          iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(info.videoId)}?${params.toString()}`;
+
+          inner.appendChild(iframe);
+          wrap.appendChild(inner);
+
+          // Insert just after the link's container.
+          if (container && container.parentNode) {
+            container.parentNode.insertBefore(wrap, container.nextSibling);
+          } else {
+            root.appendChild(wrap);
+          }
+        }
+      }
+
+      function parseYouTubeUrl(url) {
+        try {
+          const u = new URL(url);
+          if (u.hostname === "youtu.be") {
+            const videoId = u.pathname.replace(/^\//, "").split("/")[0];
+            if (!videoId) return null;
+            const startSeconds = parseStartSeconds(u.searchParams.get("t") || u.searchParams.get("start"));
+            return { videoId, startSeconds };
+          }
+          if (u.hostname === "www.youtube.com" || u.hostname === "youtube.com") {
+            if (u.pathname === "/watch") {
+              const videoId = u.searchParams.get("v");
+              if (!videoId) return null;
+              const startSeconds = parseStartSeconds(u.searchParams.get("t") || u.searchParams.get("start"));
+              return { videoId, startSeconds };
+            }
+            if (u.pathname.startsWith("/embed/")) {
+              const videoId = u.pathname.split("/")[2];
+              if (!videoId) return null;
+              const startSeconds = parseStartSeconds(u.searchParams.get("start") || u.searchParams.get("t"));
+              return { videoId, startSeconds };
+            }
+          }
+          return null;
+        } catch {
+          return null;
+        }
+      }
+
+      function parseStartSeconds(raw) {
+        if (!raw) return 0;
+        const s = String(raw).trim();
+        if (!s) return 0;
+        // Common formats: "101", "1m41s", "2h3m4s"
+        if (/^\d+$/.test(s)) return Number(s) || 0;
+        let total = 0;
+        const m = s.match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/i);
+        if (!m) return 0;
+        const h = Number(m[1] || 0);
+        const min = Number(m[2] || 0);
+        const sec = Number(m[3] || 0);
+        total = h * 3600 + min * 60 + sec;
+        return total || 0;
       }
 
       function decorateHeroicMarkers(root) {
