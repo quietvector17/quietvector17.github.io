@@ -9,9 +9,7 @@ const groupListEl = document.getElementById("wa-group-list");
 const searchEl = document.getElementById("wa-search");
 
 const autoParseEl = document.getElementById("auto-parse");
-const rootOnlyEl = document.getElementById("root-only");
-const includeAncestorsEl = document.getElementById("include-ancestors");
-const includeDescendantsEl = document.getElementById("include-descendants");
+// UI now lists only root groups and always includes descendants on export.
 
 const selectAllBtn = document.getElementById("select-all");
 const selectNoneBtn = document.getElementById("select-none");
@@ -54,6 +52,7 @@ function ensureWorker() {
       if (ap !== bp) return ap.localeCompare(bp);
       return a.name.localeCompare(b.name);
     });
+    const rootGroups = sortedGroups.filter((g) => !g.parent);
     selectedGroupNames = new Set(groups.map((g) => g.name));
 
     // Cache depths so rendering doesn't repeatedly walk parents.
@@ -73,6 +72,9 @@ function ensureWorker() {
     };
     for (const g of groups) getDepth(g.name);
 
+    // Default selection: all root groups.
+    selectedGroupNames = new Set(rootGroups.map((g) => g.name));
+
     lastParsed = {
       src: lastParsed ? lastParsed.src : "",
       bounds,
@@ -80,9 +82,10 @@ function ensureWorker() {
       graph,
       groups,
       sortedGroups,
+      rootGroups,
       depthByName,
     };
-    renderGroups(sortedGroups, graph);
+    renderGroups(rootGroups, graph);
   };
 
   worker.onerror = () => {
@@ -130,7 +133,6 @@ function listGroups(entries) {
 
 function renderGroups(groups, graph) {
   const q = (searchEl.value || "").trim().toLowerCase();
-  const rootOnly = rootOnlyEl.checked;
 
   const thisRender = ++renderRunId;
 
@@ -138,8 +140,7 @@ function renderGroups(groups, graph) {
 
   const filtered = [];
   for (const g of groups) {
-    if (rootOnly && g.parent) continue;
-    if (q && !g.name.toLowerCase().includes(q) && !(g.parent || "").toLowerCase().includes(q)) continue;
+    if (q && !g.name.toLowerCase().includes(q)) continue;
     filtered.push(g);
   }
 
@@ -258,8 +259,8 @@ function generateFilteredFile(parsed) {
   }
 
   const includedNames = closureSelected(parsed.entries, parsed.graph, selectedGroups, {
-    includeAncestors: includeAncestorsEl.checked,
-    includeDescendants: includeDescendantsEl.checked,
+    includeAncestors: true,
+    includeDescendants: true,
   });
 
   const includedEntries = parsed.entries
@@ -355,11 +356,7 @@ fileInput.addEventListener("change", async () => {
 inputEl.addEventListener("input", scheduleAutoParse);
 searchEl.addEventListener("input", () => {
   if (!lastParsed) return;
-  renderGroups(lastParsed.sortedGroups || lastParsed.groups, lastParsed.graph);
-});
-rootOnlyEl.addEventListener("change", () => {
-  if (!lastParsed) return;
-  renderGroups(lastParsed.sortedGroups || lastParsed.groups, lastParsed.graph);
+  renderGroups(lastParsed.rootGroups || lastParsed.sortedGroups || lastParsed.groups, lastParsed.graph);
 });
 
 form.addEventListener("submit", (e) => {

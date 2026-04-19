@@ -20,7 +20,7 @@
           <h1>Group Extractor</h1>
           <p class="lede">
             Paste a WeakAuras SavedVariables file, select the groups you want, and generate a new file that keeps
-            the original boilerplate but only includes the selected groups (plus optional ancestors/descendants).
+            the original boilerplate but only includes the selected root groups (children are included automatically).
           </p>
           <p class="hint" style="margin-top: 14px">
             Back to <a href="../../index.html">ToT fight analysis</a>
@@ -50,18 +50,6 @@
                 <input id="auto-parse" type="checkbox" checked />
                 <span>Auto-parse while typing</span>
               </label>
-              <label class="wa-check">
-                <input id="root-only" type="checkbox" />
-                <span>Show only root groups</span>
-              </label>
-              <label class="wa-check">
-                <input id="include-ancestors" type="checkbox" checked />
-                <span>Include ancestors on export</span>
-              </label>
-              <label class="wa-check">
-                <input id="include-descendants" type="checkbox" checked />
-                <span>Include descendants on export</span>
-              </label>
             </div>
             <p class="hint" id="wa-status">Paste a file to begin.</p>
           </form>
@@ -71,9 +59,9 @@
       <main>
         <section class="results" style="gap: 16px">
           <section class="card">
-            <h2>Groups</h2>
+            <h2>Root Groups</h2>
             <p class="note" style="margin-bottom: 12px">
-              Select groups to export. Children are inferred from each aura's <code>["parent"]</code> field.
+              Select root groups to export. All descendants are included automatically via <code>["parent"]</code>.
             </p>
             <div class="wa-toolbar">
               <input id="wa-search" type="text" placeholder="Filter by name" />
