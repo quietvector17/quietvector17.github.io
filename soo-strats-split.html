@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SoO Strategies | ToT Fight Analysis</title>
+    <title>SoO Strategies (Split) | ToT Fight Analysis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,17 +17,15 @@
       <header class="hero">
         <div class="hero-top">
           <p class="eyebrow">Siege of Orgrimmar</p>
-          <h1>Raid Strategies</h1>
-          <p class="lede">Rendered from <code>SoO Strats.md</code> in this repo.</p>
+          <h1>Raid Strategies (Split Files)</h1>
+          <p class="lede">Rendered from <code>strats/soo/*.md</code> in this repo.</p>
           <p class="hint">
             <a href="index.html">Back to Fight Analysis Dashboard</a>
-            · <a href="soo-strats-split.html">Compare: split-file version</a>
+            · <a href="soo-strats.html">Original single-file page</a>
           </p>
         </div>
         <div class="hero-panel">
-          <p class="hint" style="margin: 0">
-            Tip: edit <code>SoO Strats.md</code> and refresh this page.
-          </p>
+          <p class="hint" style="margin: 0">Tip: edit <code>strats/soo/*.md</code> and refresh this page.</p>
         </div>
       </header>
 
@@ -35,7 +33,7 @@
         <section class="card">
           <h2>SoO Strats</h2>
           <div id="content" class="prose">
-            <p class="note">Loading…</p>
+            <p class="note">Loading...</p>
           </div>
         </section>
       </main>
@@ -51,16 +49,28 @@
         breaks: false,
       });
 
+      const FILES = [
+        "strats/soo/00-intro.md",
+        "strats/soo/01-immerseus.md",
+        "strats/soo/02-fallen-protectors.md",
+        "strats/soo/03-norushen.md",
+      ];
+
       async function load() {
         try {
-          const res = await fetch("SoO%20Strats.md", { cache: "no-store" });
-          if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
-          const md = await res.text();
+          const parts = [];
+          for (const file of FILES) {
+            const res = await fetch(file, { cache: "no-store" });
+            if (!res.ok) throw new Error(`Fetch failed for ${file}: ${res.status}`);
+            parts.push(await res.text());
+          }
+
+          const md = parts.join("\n\n");
           const html = marked.parse(md);
           contentEl.innerHTML = DOMPurify.sanitize(html);
           applyBossCollapsibles(contentEl);
         } catch (err) {
-          contentEl.innerHTML = `<p class="note">Could not load <code>SoO Strats.md</code>. ${String(err)}</p>`;
+          contentEl.innerHTML = `<p class="note">Could not load split strats. ${String(err)}</p>`;
         }
       }
 
@@ -142,7 +152,7 @@
         const skull = document.createElement("span");
         skull.className = "heroic-skull";
         skull.setAttribute("aria-hidden", "true");
-        skull.textContent = "☠";
+        skull.textContent = "\u2620";
 
         // Use a plain text space after the skull for consistent wrapping.
         el.insertBefore(document.createTextNode(" "), el.firstChild);
