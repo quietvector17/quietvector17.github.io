@@ -112,7 +112,9 @@
       }
 
       function decorateHeroicMarkers(root) {
-        const heroicPrefix = /^\s*heroic\b\s*[:\-]?/i;
+        // Mark lines that start with Heroic, or contain a parenthetical Heroic note.
+        // Example: "(Heroic: 50 corruption)"
+        const heroicPrefix = /^\s*heroic\b\s*[:\-]?|\(\s*heroic\b\s*[:\-]?/i;
         const candidates = Array.from(root.querySelectorAll("h3, h4, h5, h6, li, p"));
 
         for (const el of candidates) {
@@ -127,20 +129,20 @@
       }
 
       function uppercaseHeroicPrefix(el) {
-        // Uppercase the leading "Heroic" in the first meaningful text node.
+        // Uppercase the first "Heroic" marker in the first meaningful text node.
+        // Supported patterns:
+        // - "Heroic: ..." at line start
+        // - "(... (Heroic: ...) ...)" parenthetical note
         const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
         let node = walker.nextNode();
         while (node) {
           const value = node.nodeValue || "";
-          const trimmed = value.trimStart();
-          const leadingWs = value.slice(0, value.length - trimmed.length);
-          if (!trimmed) {
+          if (!value.trim()) {
             node = walker.nextNode();
             continue;
           }
-          if (/^heroic\b/i.test(trimmed)) {
-            node.nodeValue = leadingWs + trimmed.replace(/^heroic\b/i, "HEROIC");
-          }
+          if (/^\s*heroic\b/i.test(value)) node.nodeValue = value.replace(/^(\s*)heroic\b/i, "$1HEROIC");
+          else if (/\(\s*heroic\b/i.test(value)) node.nodeValue = value.replace(/\(\s*heroic\b/i, (m) => m.replace(/heroic\b/i, "HEROIC"));
           return;
         }
       }
