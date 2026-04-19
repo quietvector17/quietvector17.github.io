@@ -3,107 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="0; url=tools/weakaura-slicer/" />
     <title>WeakAuras Group Extractor</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="canonical" href="tools/weakaura-slicer/" />
   </head>
   <body>
-    <div class="page">
-      <header class="hero">
-        <div class="hero-top">
-          <p class="eyebrow">WeakAuras</p>
-          <h1>Group Extractor</h1>
-          <p class="lede">
-            Paste a WeakAuras SavedVariables file, select the groups you want, and generate a new file that keeps
-            the original boilerplate but only includes the selected groups (plus optional ancestors/descendants).
-          </p>
-          <p class="hint" style="margin-top: 14px">
-            Back to <a href="index.html">ToT fight analysis</a>
-          </p>
-        </div>
-        <div class="hero-panel">
-          <form id="wa-form" class="form">
-            <label class="field">
-              <span>SavedVariables File (optional)</span>
-              <input id="wa-file" type="file" accept=".lua,.txt" />
-            </label>
-            <label class="field">
-              <span>Paste SavedVariables</span>
-              <textarea
-                id="wa-input"
-                class="wa-textarea"
-                rows="10"
-                placeholder="Paste the contents of WeakAuras.lua here (the file that contains WeakAurasSaved = { ... }."
-              ></textarea>
-            </label>
-            <div class="actions">
-              <button id="parse-btn" type="submit">Parse Groups</button>
-              <button id="clear-btn" type="button" class="ghost">Clear</button>
-            </div>
-            <div class="wa-options">
-              <label class="wa-check">
-                <input id="auto-parse" type="checkbox" checked />
-                <span>Auto-parse while typing</span>
-              </label>
-              <label class="wa-check">
-                <input id="root-only" type="checkbox" />
-                <span>Show only root groups</span>
-              </label>
-              <label class="wa-check">
-                <input id="include-ancestors" type="checkbox" checked />
-                <span>Include ancestors on export</span>
-              </label>
-              <label class="wa-check">
-                <input id="include-descendants" type="checkbox" checked />
-                <span>Include descendants on export</span>
-              </label>
-            </div>
-            <p class="hint" id="wa-status">Paste a file to begin.</p>
-          </form>
-        </div>
-      </header>
-
-      <main>
-        <section class="results" style="gap: 16px">
-          <section class="card">
-            <h2>Groups</h2>
-            <p class="note" style="margin-bottom: 12px">
-              Select groups to export. Children are inferred from each aura's <code>["parent"]</code> field.
-            </p>
-            <div class="wa-toolbar">
-              <input id="wa-search" type="text" placeholder="Filter by name" />
-              <div class="actions" style="margin: 0">
-                <button id="select-all" type="button" class="ghost">Select All</button>
-                <button id="select-none" type="button" class="ghost">Select None</button>
-              </div>
-            </div>
-            <div id="wa-group-list" class="wa-list"></div>
-          </section>
-
-          <section class="card">
-            <h2>Export</h2>
-            <p class="note" style="margin-bottom: 12px">
-              Generates a new file with the same top-level data as your input, but with a filtered <code>["displays"]</code>
-              table.
-            </p>
-            <div class="actions">
-              <button id="generate-btn" type="button">Generate File</button>
-              <button id="download-btn" type="button" class="ghost" disabled>Download</button>
-              <button id="copy-btn" type="button" class="ghost" disabled>Copy</button>
-            </div>
-            <label class="field" style="margin-top: 14px">
-              <span>Output</span>
-              <textarea id="wa-output" class="wa-textarea" rows="12" readonly></textarea>
-            </label>
-          </section>
-        </section>
-      </main>
-    </div>
-    <script src="weakaura-slicer.js?v=20260419-1"></script>
+    <p>
+      This page moved to <a href="tools/weakaura-slicer/">tools/weakaura-slicer/</a>.
+    </p>
   </body>
 </html>
