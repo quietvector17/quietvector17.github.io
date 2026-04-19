@@ -4,6 +4,10 @@ Notes and reminders for Siege of Orgrimmar (SoO). This is intentionally concise 
 
 ## Immerseus
 
+### General
+
+- ***If your group doesn't have adds - shift clockwise***
+
 ### DPS Phase
 
 - Burn boss.
