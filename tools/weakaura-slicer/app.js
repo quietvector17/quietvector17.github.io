@@ -23,149 +23,81 @@ let lastParsed = null;
 let downloadUrl = null;
 let parseTimer = null;
 let selectedGroupNames = new Set();
+let parseRunId = 0;
+let renderRunId = 0;
+
+let worker = null;
+let workerBusy = false;
+
+function ensureWorker() {
+  if (worker) return worker;
+  worker = new Worker("./worker.js");
+  worker.onmessage = (ev) => {
+    const msg = ev.data;
+    if (!msg || msg.type !== "parsed") return;
+    const { parseId, bounds, entries, error } = msg;
+    if (parseId !== parseRunId) return;
+    workerBusy = false;
+
+    if (error) {
+      lastParsed = null;
+      groupListEl.innerHTML = "";
+      setStatus(error);
+      return;
+    }
+
+    const graph = buildGraph(entries);
+    const groups = listGroups(entries);
+    const sortedGroups = [...groups].sort((a, b) => {
+      const ap = a.parent || "";
+      const bp = b.parent || "";
+      if (ap !== bp) return ap.localeCompare(bp);
+      return a.name.localeCompare(b.name);
+    });
+    selectedGroupNames = new Set(groups.map((g) => g.name));
+
+    // Cache depths so rendering doesn't repeatedly walk parents.
+    const depthByName = new Map();
+    const getDepth = (name) => {
+      if (depthByName.has(name)) return depthByName.get(name);
+      let d = 0;
+      let cur = graph.byName.get(name);
+      const seen = new Set([name]);
+      while (cur && cur.parent && !seen.has(cur.parent)) {
+        seen.add(cur.parent);
+        d += 1;
+        cur = graph.byName.get(cur.parent);
+      }
+      depthByName.set(name, d);
+      return d;
+    };
+    for (const g of groups) getDepth(g.name);
+
+    lastParsed = {
+      src: lastParsed ? lastParsed.src : "",
+      bounds,
+      entries,
+      graph,
+      groups,
+      sortedGroups,
+      depthByName,
+    };
+    renderGroups(sortedGroups, graph);
+  };
+
+  worker.onerror = () => {
+    workerBusy = false;
+    setStatus("Worker error while parsing.");
+  };
+  return worker;
+}
 
 function setStatus(text) {
   statusEl.textContent = text;
 }
 
-function stripLuaStrings(text) {
-  // Returns a string with the same length as `text` where characters inside
-  // Lua double-quoted strings are replaced with spaces (preserves indices).
-  let out = "";
-  let inStr = false;
-  let esc = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (inStr) {
-      if (esc) {
-        esc = false;
-        out += " ";
-        continue;
-      }
-      if (ch === "\\") {
-        esc = true;
-        out += " ";
-        continue;
-      }
-      if (ch === '"') {
-        inStr = false;
-      }
-      out += " ";
-      continue;
-    }
-    if (ch === '"') {
-      inStr = true;
-      out += " ";
-      continue;
-    }
-    out += ch;
-  }
-  return out;
-}
-
-function findDisplaysBounds(src) {
-  const stripped = stripLuaStrings(src);
-  const m = stripped.match(/\["displays"\]\s*=\s*\{/);
-  if (!m) return null;
-  const openBraceIdx = (m.index || 0) + m[0].lastIndexOf("{");
-  let depth = 0;
-  let started = false;
-  for (let i = openBraceIdx; i < stripped.length; i++) {
-    const ch = stripped[i];
-    if (ch === "{") {
-      depth += 1;
-      started = true;
-    } else if (ch === "}") {
-      depth -= 1;
-      if (started && depth === 0) {
-        return {
-          openBraceIdx,
-          innerStart: openBraceIdx + 1,
-          closeBraceIdx: i,
-          innerEnd: i,
-        };
-      }
-    }
-  }
-  return null;
-}
-
-function parseTopLevelDisplayEntries(src, bounds) {
-  // Returns entries with exact source slices, plus inferred fields.
-  const stripped = stripLuaStrings(src);
-
-  const entries = [];
-  let i = bounds.innerStart;
-  let depth = 1; // we're inside displays
-  let entryStart = null;
-  let entryDepthStart = null;
-  let entryName = null;
-
-  // Match ["Name"] = { at depth==1.
-  const reKeyedOpen = /\["([^"]+)"\]\s*=\s*\{/y;
-
-  while (i < bounds.innerEnd) {
-    const ch = stripped[i];
-
-    if (entryStart == null && depth === 1) {
-      reKeyedOpen.lastIndex = i;
-      const m = reKeyedOpen.exec(stripped);
-      if (m) {
-        entryStart = m.index;
-        entryName = m[1];
-        // The brace for this entry is the last character matched.
-        entryDepthStart = depth + 1; // depth after consuming this '{'
-        i = reKeyedOpen.lastIndex;
-        depth += 1;
-        continue;
-      }
-    }
-
-    if (ch === "{") {
-      depth += 1;
-    } else if (ch === "}") {
-      depth -= 1;
-      if (entryStart != null && depth === 1) {
-        // Entry closed. Include trailing comma/newlines after the closing brace.
-        let end = i + 1;
-        while (end < bounds.innerEnd) {
-          const c = src[end];
-          if (c === ",") {
-            end += 1;
-            break;
-          }
-          if (c === "\n" || c === "\r" || c === "\t" || c === " ") {
-            end += 1;
-            continue;
-          }
-          break;
-        }
-
-        const slice = src.slice(entryStart, end);
-        const regionTypeMatch = slice.match(/\["regionType"\]\s*=\s*"([^"]+)"/);
-        const parentMatch = slice.match(/\["parent"\]\s*=\s*"([^"]+)"/);
-        const idMatch = slice.match(/\["id"\]\s*=\s*"([^"]+)"/);
-
-        entries.push({
-          name: entryName,
-          start: entryStart,
-          end,
-          text: slice,
-          regionType: regionTypeMatch ? regionTypeMatch[1] : null,
-          parent: parentMatch ? parentMatch[1] : null,
-          id: idMatch ? idMatch[1] : null,
-        });
-
-        entryStart = null;
-        entryDepthStart = null;
-        entryName = null;
-      }
-    }
-
-    i += 1;
-  }
-
-  return entries;
+function isWs(ch) {
+  return ch === " " || ch === "\n" || ch === "\r" || ch === "\t";
 }
 
 function buildGraph(entries) {
@@ -180,6 +112,7 @@ function buildGraph(entries) {
 }
 
 function computeDepth(name, byName) {
+  // Kept for compatibility; we typically use lastParsed.depthByName now.
   let d = 0;
   let cur = byName.get(name);
   const seen = new Set();
@@ -199,68 +132,75 @@ function renderGroups(groups, graph) {
   const q = (searchEl.value || "").trim().toLowerCase();
   const rootOnly = rootOnlyEl.checked;
 
+  const thisRender = ++renderRunId;
+
   groupListEl.innerHTML = "";
-  const frag = document.createDocumentFragment();
 
-  const sorted = [...groups].sort((a, b) => {
-    const ap = a.parent || "";
-    const bp = b.parent || "";
-    if (ap !== bp) return ap.localeCompare(bp);
-    return a.name.localeCompare(b.name);
-  });
-
-  let shown = 0;
-  for (const g of sorted) {
+  const filtered = [];
+  for (const g of groups) {
     if (rootOnly && g.parent) continue;
     if (q && !g.name.toLowerCase().includes(q) && !(g.parent || "").toLowerCase().includes(q)) continue;
-
-    const row = document.createElement("div");
-    row.className = "wa-row";
-
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.id = `wa-g-${encodeURIComponent(g.name)}`;
-    cb.checked = selectedGroupNames.has(g.name);
-    cb.dataset.name = g.name;
-    cb.addEventListener("change", () => {
-      const name = cb.dataset.name;
-      if (!name) return;
-      if (cb.checked) selectedGroupNames.add(name);
-      else selectedGroupNames.delete(name);
-
-      if (lastParsed) {
-        setStatus(`Selected ${selectedGroupNames.size} group(s).`);
-      }
-    });
-
-    const label = document.createElement("label");
-    label.htmlFor = cb.id;
-    const depth = computeDepth(g.name, graph.byName);
-    const indent = "\u00a0".repeat(Math.min(depth, 10) * 2);
-
-    const title = document.createElement("div");
-    title.className = "wa-name";
-    title.textContent = `${indent}${g.name}`;
-
-    const meta = document.createElement("div");
-    meta.className = "wa-meta";
-    meta.textContent = `${g.regionType}${g.parent ? `  parent: ${g.parent}` : ""}`;
-
-    label.appendChild(title);
-    label.appendChild(meta);
-
-    row.appendChild(cb);
-    row.appendChild(label);
-    frag.appendChild(row);
-    shown += 1;
+    filtered.push(g);
   }
 
-  groupListEl.appendChild(frag);
-  setStatus(
-    lastParsed
-      ? `Parsed ${groups.length} group(s). Showing ${shown}. Selected ${selectedGroupNames.size}.`
-      : "Paste a file to begin."
-  );
+  const depthByName = lastParsed && lastParsed.depthByName ? lastParsed.depthByName : null;
+
+  let idx = 0;
+  let shown = 0;
+  const chunk = 250;
+
+  function step() {
+    if (thisRender !== renderRunId) return;
+
+    const frag = document.createDocumentFragment();
+    const end = Math.min(filtered.length, idx + chunk);
+    for (; idx < end; idx++) {
+      const g = filtered[idx];
+
+      const row = document.createElement("div");
+      row.className = "wa-row";
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = selectedGroupNames.has(g.name);
+      cb.dataset.name = g.name;
+
+      const label = document.createElement("label");
+      const depth = depthByName ? depthByName.get(g.name) || 0 : computeDepth(g.name, graph.byName);
+      const indent = "\u00a0".repeat(Math.min(depth, 10) * 2);
+
+      const title = document.createElement("div");
+      title.className = "wa-name";
+      title.textContent = `${indent}${g.name}`;
+
+      const meta = document.createElement("div");
+      meta.className = "wa-meta";
+      meta.textContent = `${g.regionType}${g.parent ? `  parent: ${g.parent}` : ""}`;
+
+      label.appendChild(title);
+      label.appendChild(meta);
+
+      row.appendChild(cb);
+      row.appendChild(label);
+      frag.appendChild(row);
+      shown += 1;
+    }
+
+    groupListEl.appendChild(frag);
+    setStatus(
+      lastParsed
+        ? `Parsed ${groups.length} group(s). Showing ${shown}/${filtered.length}. Selected ${selectedGroupNames.size}.`
+        : "Paste a file to begin."
+    );
+
+    if (idx < filtered.length) {
+      window.requestAnimationFrame(step);
+    }
+  }
+
+  window.requestAnimationFrame(step);
+
+  return;
 }
 
 function getSelectedGroupNames() {
@@ -325,7 +265,7 @@ function generateFilteredFile(parsed) {
   const includedEntries = parsed.entries
     .filter((e) => includedNames.has(e.name))
     .sort((a, b) => a.start - b.start)
-    .map((e) => e.text.trimEnd());
+    .map((e) => parsed.src.slice(e.start, e.end).trimEnd());
 
   const inner = includedEntries.length ? `\n${includedEntries.join("\n\n")}\n` : "\n";
   const before = parsed.src.slice(0, parsed.bounds.innerStart);
@@ -358,33 +298,51 @@ function parseNow() {
     return;
   }
 
-  const bounds = findDisplaysBounds(src);
-  if (!bounds) {
-    lastParsed = null;
-    groupListEl.innerHTML = "";
-    setStatus('Could not find a ["displays"] table in the pasted text.');
-    return;
+  const runId = ++parseRunId;
+  setStatus("Parsing...");
+
+  // If a parse is already running, kill the worker so it doesn't chew CPU.
+  if (workerBusy && worker) {
+    worker.terminate();
+    worker = null;
+    workerBusy = false;
   }
 
-  const entries = parseTopLevelDisplayEntries(src, bounds);
-  const graph = buildGraph(entries);
-  const groups = listGroups(entries);
+  // Keep src on the main thread for slicing during export.
+  lastParsed = { src };
 
-  // Default selection: all groups.
-  selectedGroupNames = new Set(groups.map((g) => g.name));
-
-  lastParsed = { src, bounds, entries, graph, groups };
-  renderGroups(groups, graph);
+  const w = ensureWorker();
+  workerBusy = true;
+  w.postMessage({ type: "parse", parseId: runId, src });
 }
 
 function scheduleAutoParse() {
   if (!autoParseEl.checked) return;
   if (parseTimer) window.clearTimeout(parseTimer);
+  const delay = (inputEl.value || "").length > 1_500_000 ? 1200 : 450;
+  const schedule = (cb) => {
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(cb, { timeout: Math.max(1500, delay + 600) });
+      return;
+    }
+    window.setTimeout(cb, 0);
+  };
   parseTimer = window.setTimeout(() => {
     parseTimer = null;
-    parseNow();
-  }, 450);
+    schedule(() => parseNow());
+  }, delay);
 }
+
+// Event delegation: avoid one listener per checkbox row.
+groupListEl.addEventListener("change", (e) => {
+  const target = e.target;
+  if (!target || target.tagName !== "INPUT" || target.type !== "checkbox") return;
+  const name = target.dataset.name;
+  if (!name) return;
+  if (target.checked) selectedGroupNames.add(name);
+  else selectedGroupNames.delete(name);
+  if (lastParsed) setStatus(`Selected ${selectedGroupNames.size} group(s).`);
+});
 
 fileInput.addEventListener("change", async () => {
   const file = fileInput.files && fileInput.files[0];
@@ -397,11 +355,11 @@ fileInput.addEventListener("change", async () => {
 inputEl.addEventListener("input", scheduleAutoParse);
 searchEl.addEventListener("input", () => {
   if (!lastParsed) return;
-  renderGroups(lastParsed.groups, lastParsed.graph);
+  renderGroups(lastParsed.sortedGroups || lastParsed.groups, lastParsed.graph);
 });
 rootOnlyEl.addEventListener("change", () => {
   if (!lastParsed) return;
-  renderGroups(lastParsed.groups, lastParsed.graph);
+  renderGroups(lastParsed.sortedGroups || lastParsed.groups, lastParsed.graph);
 });
 
 form.addEventListener("submit", (e) => {
