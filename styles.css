@@ -102,6 +102,92 @@ input {
   color: var(--ink);
 }
 
+textarea.wa-textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2b3b52;
+  font-size: 0.95rem;
+  background: #0c1320;
+  color: var(--ink);
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.4;
+}
+
+.wa-options {
+  display: grid;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.wa-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.wa-check input {
+  width: 18px;
+  height: 18px;
+}
+
+.wa-toolbar {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.wa-list {
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: auto;
+  max-height: 520px;
+}
+
+.wa-row {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(35, 50, 71, 0.7);
+}
+
+.wa-row:last-child {
+  border-bottom: none;
+}
+
+.wa-row label {
+  display: block;
+  cursor: pointer;
+}
+
+.wa-row .wa-name {
+  color: var(--ink);
+  font-weight: 550;
+}
+
+.wa-row .wa-meta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.wa-indent {
+  display: inline-block;
+  width: 0;
+}
+
+@media (max-width: 720px) {
+  .wa-toolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
 input::placeholder {
   color: rgba(167, 176, 187, 0.75);
 }
