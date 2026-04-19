@@ -317,6 +317,22 @@ button.ghost {
   letter-spacing: 0.12em;
 }
 
+/* Improve hierarchy under H3 sections (e.g. Tank/Healer/DPS realm under Golden Orbs). */
+.prose h4 {
+  margin: 16px 0 10px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 61, 133, 0.35);
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.prose h4 + p,
+.prose h4 + ul,
+.prose h4 + ol {
+  margin-left: 14px;
+}
+
 .prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.95em;
