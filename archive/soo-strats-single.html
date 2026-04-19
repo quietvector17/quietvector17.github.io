@@ -70,15 +70,23 @@
         const h2s = Array.from(root.querySelectorAll("h2"));
         if (!h2s.length) return;
 
+        const storageKey = `strats:bossOpen:${location.pathname}`;
+        const savedOpen = loadOpenSet(storageKey);
+        const hasSaved = savedOpen != null;
+        const openSet = savedOpen || new Set();
+
         for (let i = 0; i < h2s.length; i++) {
           const h2 = h2s[i];
           const details = document.createElement("details");
           details.className = "boss";
-          // Open the first boss by default.
-          if (i === 0) details.open = true;
+          const title = (h2.textContent || "Section").trim();
+          const key = bossKey(title);
+
+          // Restore open state if available; otherwise open the first section.
+          if (hasSaved) details.open = openSet.has(key);
+          else if (i === 0) details.open = true;
 
           const summary = document.createElement("summary");
-          const title = h2.textContent || "Section";
           const titleSpan = document.createElement("span");
           titleSpan.className = "boss-title";
           titleSpan.textContent = title;
@@ -101,6 +109,34 @@
 
           details.appendChild(body);
           h2.replaceWith(details);
+
+          details.addEventListener("toggle", () => {
+            try {
+              const cur = loadOpenSet(storageKey) || new Set();
+              if (details.open) cur.add(key);
+              else cur.delete(key);
+              localStorage.setItem(storageKey, JSON.stringify(Array.from(cur)));
+            } catch {
+              // Ignore storage failures (privacy mode, etc.).
+            }
+          });
+        }
+      }
+
+      function bossKey(title) {
+        // Case-insensitive key; keep it stable across minor formatting.
+        return title.trim().toLowerCase();
+      }
+
+      function loadOpenSet(storageKey) {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return null;
+          const arr = JSON.parse(raw);
+          if (!Array.isArray(arr)) return null;
+          return new Set(arr.map((s) => String(s)));
+        } catch {
+          return null;
         }
       }
 
