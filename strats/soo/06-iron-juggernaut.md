@@ -33,7 +33,7 @@
   - If a cast completes: ~300K damage to the entire raid.
   - If you interrupt/soak the detonation: ~1.5M physical damage to the soaker.
     - Use defensives.
-    - Clothies ~1M, tanks ~600K (from notes).
+    - Clothies ~1M, tanks ~600K.
 
 #### Heroic notes
 
