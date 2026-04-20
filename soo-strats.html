@@ -246,10 +246,11 @@
         // Make the South/North tower labels read like subheads and reduce the
         // list indentation under them.
         const targets = new Set(["South Tower (Tower 1)", "North Tower (Tower 2)"]);
+        const roleLine = /^Gunner\s*\(\d+\)\s*$/i;
         const ps = Array.from(root.querySelectorAll("p"));
         for (const p of ps) {
           const title = (p.textContent || "").replace(/\s+/g, " ").trim();
-          if (!targets.has(title)) continue;
+          if (!targets.has(title) && !roleLine.test(title)) continue;
           if (!isUnderTurretClickers(p)) continue;
 
           p.classList.add("guild-subhead");
@@ -257,6 +258,24 @@
           if (next && next.tagName === "UL") {
             next.classList.add("guild-sublist");
           }
+        }
+
+        // Highlight role prefixes in list items (e.g. "Gunner (1) - ...").
+        const lis = Array.from(root.querySelectorAll("li"));
+        for (const li of lis) {
+          if (!isUnderTurretClickers(li)) continue;
+          if (li.querySelector(":scope > .role-tag")) continue;
+          const text = (li.textContent || "").replace(/\s+/g, " ").trim();
+          const m = text.match(/^(Gunner\s*\(\d+\))\s*[-–—]\s*(.+)$/i);
+          if (!m) continue;
+
+          li.textContent = "";
+          const tag = document.createElement("span");
+          tag.className = "role-tag";
+          tag.textContent = m[1];
+          li.appendChild(tag);
+          li.appendChild(document.createTextNode(" "));
+          li.appendChild(document.createTextNode(m[2]));
         }
       }
 
