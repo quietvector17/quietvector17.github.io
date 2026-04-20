@@ -13,9 +13,9 @@
 
 - `Tidal Shaman`
   - Stun and interrupt as much as possible.
-  - Kill `Healing Totem` immediately (melee should snap these).
+  - Kill `Healing Totem` immediately (Melee Priority).
 - `Flag Bearer`
-  - Kill `War Banner` immediately (melee should snap these).
+  - Kill `War Banner` immediately (Melee Priority).
 - `Bonecrusher`
   - Must be stunned/controlled and interrupted.
   - Charges a friendly NPC: taunt or interrupt to stop it.
@@ -95,3 +95,17 @@
   - Split into two groups on either hind leg.
   - `Flames of Galakrond` target: run behind your group to reduce orb damage.
   - Let stacks reset by alternating which group people run behind.
+
+#### Turret Clickers
+
+South Tower (Tower 1)
+- Run up the tower with your group
+- Once the adds are clear, hop into the turret and shoot down the protodrakes
+- After shooting down all the protodrakes, click the rope to bring it down
+
+North Tower (Tower 2)
+- Run up the tower with your group
+- Once the adds are clear, hop into the turret and shoot down the protodrakes
+- Once the protodrakes are clear, YOU or SOMEONE ELSE should have used the rope you kicked down for Tower 1
+
+*** YOU MUST SHOOT THE BOSS WITH THE TURRETS AT THE SAME TIME TO BRING IT DOWN ***
