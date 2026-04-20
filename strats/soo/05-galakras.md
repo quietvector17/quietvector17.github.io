@@ -108,13 +108,17 @@
 #### Turret Clickers
 
 South Tower (Tower 1)
-- Run up the tower with your group
+- Gunner (1) - Run up the tower with your group
 - Once the adds are clear, hop into the turret and shoot down the protodrakes
 - After shooting down all the protodrakes, click the rope to bring it down
 
 North Tower (Tower 2)
-- Run up the tower with your group
-- Once the adds are clear, hop into the turret and shoot down the protodrakes
-- Once the protodrakes are clear, YOU or SOMEONE ELSE should have used the rope you kicked down for Tower 1
+- Gunner (1) - Run up the tower with your group
+- Once the adds are clear, hop into the turret and shoot down the Protodrakes
+- Once the Protodrakes are clear, Gunner (2) and Gunner (1) will shoot the boss at the same time to bring her down.
+
+Gunner (1)
+- As soon as Gunner (2) starts heading up their tower, you go back up Tower 1 by clicking the rope
+- Start clearing Drakes and wait for the call to shoot boss from Gunner (2)
 
 *** YOU MUST SHOOT THE BOSS WITH THE TURRETS AT THE SAME TIME TO BRING IT DOWN ***
