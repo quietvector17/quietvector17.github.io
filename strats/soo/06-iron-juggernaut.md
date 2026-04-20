@@ -15,7 +15,7 @@
   - Applies a stacking debuff (fire damage + increased fire damage taken).
 - `Laser Burn`
   - Random players.
-  - 16s fire DoT (~25K DPS in notes).
+  - Applies a 16 second Fire DoT (~25K DPS)
 - `Demolisher Cannons`
   - Constant damage to random players.
   - ~165K fire damage to the target and players within 6 yards.
