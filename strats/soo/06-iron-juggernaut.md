@@ -27,7 +27,7 @@
 - `Borer Drill`
   - Follows players for a few seconds.
   - Continuous physical damage.
-  - Keep moving or kite it.
+  - Keep moving or tank it.
 - `Crawler Mines`
   - 5 mines begin a 10s `Detonation Sequence`.
   - If a cast completes: ~300K damage to the entire raid.
