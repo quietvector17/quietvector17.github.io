@@ -24,7 +24,12 @@
             · <a href="archive/soo-strats-single.html">Archived single-file version</a>
           </p> -->
         </div>
-        <div class="hero-panel"></div>
+        <div class="hero-panel">
+          <div class="version-tag">
+            <span class="label">Strats Version</span>
+            <span class="value" id="strats-version">v?</span>
+          </div>
+        </div>
       </header>
 
       <main>
@@ -47,6 +52,8 @@
         breaks: false,
       });
 
+      const VERSION_PATH = "strats/soo/VERSION";
+
       const FILES = [
         "strats/soo/00-intro.md",
         "strats/soo/01-immerseus.md",
@@ -56,6 +63,20 @@
         "strats/soo/05-galakras.md",
         "strats/soo/06-iron-juggernaut.md",
       ];
+
+      async function loadVersion() {
+        const el = document.getElementById("strats-version");
+        if (!el) return;
+        try {
+          const res = await fetch(VERSION_PATH, { cache: "no-store" });
+          if (!res.ok) return;
+          const raw = (await res.text()).trim();
+          if (!raw) return;
+          el.textContent = `v${raw}`;
+        } catch {
+          // ignore
+        }
+      }
 
       async function load() {
         try {
@@ -345,6 +366,7 @@
         el.insertBefore(skull, el.firstChild);
       }
 
+      loadVersion();
       load();
     </script>
   </body>

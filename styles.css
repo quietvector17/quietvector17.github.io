@@ -72,6 +72,29 @@ a:hover {
   padding: 24px;
 }
 
+.version-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(35, 50, 71, 0.85);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.version-tag .label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.version-tag .value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight: 750;
+  color: var(--ink);
+}
+
 .form {
   display: grid;
   gap: 18px;

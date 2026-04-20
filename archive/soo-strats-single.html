@@ -25,9 +25,11 @@
           </p>
         </div>
         <div class="hero-panel">
-          <p class="hint" style="margin: 0">
-            Archived single-file version.
-          </p>
+          <div class="version-tag">
+            <span class="label">Strats Version</span>
+            <span class="value" id="strats-version">v?</span>
+          </div>
+          <p class="hint" style="margin: 12px 0 0">Archived single-file version.</p>
         </div>
       </header>
 
@@ -46,10 +48,26 @@
     <script>
       const contentEl = document.getElementById("content");
 
+      const VERSION_PATH = "../strats/soo/VERSION";
+
       marked.setOptions({
         gfm: true,
         breaks: false,
       });
+
+      async function loadVersion() {
+        const el = document.getElementById("strats-version");
+        if (!el) return;
+        try {
+          const res = await fetch(VERSION_PATH, { cache: "no-store" });
+          if (!res.ok) return;
+          const raw = (await res.text()).trim();
+          if (!raw) return;
+          el.textContent = `v${raw}`;
+        } catch {
+          // ignore
+        }
+      }
 
       async function load() {
         try {
@@ -334,6 +352,7 @@
         el.insertBefore(skull, el.firstChild);
       }
 
+      loadVersion();
       load();
     </script>
   </body>
