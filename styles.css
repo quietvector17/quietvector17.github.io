@@ -454,9 +454,14 @@ button.ghost {
     0 10px 40px rgba(0, 0, 0, 0.45);
   color: var(--ink);
   font-weight: 800;
+  font-size: 1.12rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   line-height: 1.25;
+  text-align: center;
+  text-shadow:
+    0 0 14px rgba(255, 61, 133, 0.25),
+    0 0 2px rgba(0, 0, 0, 0.6);
 }
 
 .prose .callout-danger::before {

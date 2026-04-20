@@ -193,8 +193,19 @@
         const mustSyncTurrets = "YOU MUST SHOOT THE BOSS WITH THE TURRETS AT THE SAME TIME TO BRING IT DOWN";
         const nodes = Array.from(root.querySelectorAll("p, li"));
         for (const el of nodes) {
-          const text = (el.textContent || "").replace(/\s+/g, " ").trim();
-          if (text !== mustSyncTurrets) continue;
+          const raw = (el.textContent || "");
+          const normalized = raw
+            .replace(/\*/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+          if (normalized !== mustSyncTurrets) continue;
+
+          // If Markdown didn't parse the emphasis and left literal `***`,
+          // replace the text at render-time (don't modify the source .md).
+          if (raw.includes("*")) {
+            el.textContent = mustSyncTurrets;
+          }
+
           el.classList.add("callout-danger");
         }
       }
