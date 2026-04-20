@@ -116,6 +116,8 @@
 
           decorateHeroicMarkers(body);
           embedYouTubeLinks(body);
+          decorateGuildCallouts(body);
+          decorateGuildAssignmentsLayout(body);
 
           details.appendChild(body);
           h2.replaceWith(details);
@@ -194,6 +196,48 @@
             root.appendChild(wrap);
           }
         }
+      }
+
+      function decorateGuildCallouts(root) {
+        // Style specific guild-critical reminders as loud callouts.
+        const mustSyncTurrets = "YOU MUST SHOOT THE BOSS WITH THE TURRETS AT THE SAME TIME TO BRING IT DOWN";
+        const nodes = Array.from(root.querySelectorAll("p, li"));
+        for (const el of nodes) {
+          const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+          if (text !== mustSyncTurrets) continue;
+          el.classList.add("callout-danger");
+        }
+      }
+
+      function decorateGuildAssignmentsLayout(root) {
+        // Make the South/North tower labels read like subheads and reduce the
+        // list indentation under them.
+        const targets = new Set(["South Tower (Tower 1)", "North Tower (Tower 2)"]);
+        const ps = Array.from(root.querySelectorAll("p"));
+        for (const p of ps) {
+          const title = (p.textContent || "").replace(/\s+/g, " ").trim();
+          if (!targets.has(title)) continue;
+          if (!isUnderTurretClickers(p)) continue;
+
+          p.classList.add("guild-subhead");
+          const next = p.nextElementSibling;
+          if (next && next.tagName === "UL") {
+            next.classList.add("guild-sublist");
+          }
+        }
+      }
+
+      function isUnderTurretClickers(el) {
+        // Ensure we only touch the "Turret Clickers" area.
+        let cur = el.previousElementSibling;
+        while (cur) {
+          if (cur.tagName === "H4" || cur.tagName === "H3" || cur.tagName === "H2") {
+            const t = (cur.textContent || "").toLowerCase();
+            return t.includes("turret clickers");
+          }
+          cur = cur.previousElementSibling;
+        }
+        return false;
       }
 
       function parseYouTubeUrl(url) {
