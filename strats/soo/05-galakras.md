@@ -113,7 +113,7 @@ South Tower (Tower 1)
 - After shooting down all the protodrakes, click the rope to bring it down
 
 North Tower (Tower 2)
-- Gunner (1) - Run up the tower with your group
+- Gunner (2) - Run up the tower with your group
 - Once the adds are clear, hop into the turret and shoot down the Protodrakes
 - Once the Protodrakes are clear, Gunner (2) and Gunner (1) will shoot the boss at the same time to bring her down.
 
