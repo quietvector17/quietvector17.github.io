@@ -44,6 +44,15 @@
   - One player can stay up and use the turret to kill all `Proto-drake`s.
   - After drakes are dead, click the rope to drop it for the raid.
 
+#### Heroic notes
+
+- The tower will unlock automatically after a certain amount of time.
+- Protect the demolition crew that is trying to blow open the door.
+- Suggested South tower team: 3 DPS, 2 healers, 1 tank.
+  - Priority:
+    - Grunts hitting the crew at the door.
+    - Then help main team with adds.
+
 ### Tower 2 (North)
 
 #### Miniboss priority (outside)
@@ -56,6 +65,12 @@
 #### Inside the tower
 
 - Same process as South.
+
+#### Heroic notes
+
+- The tower will unlock automatically after a certain amount of time.
+- Protect the demolition crew that is trying to blow open the door.
+- North tower team should be ready to climb when it unlocks.
 
 ### Turrets / Bringing the Boss Down
 
@@ -84,17 +99,11 @@
 
 #### Heroic notes
 
-- Towers unlock automatically after a certain amount of time.
-- You must protect the demolition crew that is trying to blow open the doors.
-- South tower team (example): 3 DPS, 2 healers, 1 tank.
-  - Priority:
-    - Grunts hitting the crew at the door.
-    - Then help main team with adds.
+- Split into two groups on either hind leg.
+- `Flames of Galakrond` target: run behind your group to reduce orb damage.
+- Let stacks reset by alternating which group people run behind.
 
-- Ground phase positioning:
-  - Split into two groups on either hind leg.
-  - `Flames of Galakrond` target: run behind your group to reduce orb damage.
-  - Let stacks reset by alternating which group people run behind.
+### Guild Assignments
 
 #### Turret Clickers
 
