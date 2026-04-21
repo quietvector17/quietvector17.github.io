@@ -1,5 +1,13 @@
 ## Norushen
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=7oFoDLYxQag) | [Heroic video guide (YouTube)](https://www.youtube.com/watch?v=U5t6-0-f-Xk) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 - 7 minute enrage.
 
 ### Corruption Basics

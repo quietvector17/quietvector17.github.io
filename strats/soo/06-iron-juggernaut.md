@@ -1,5 +1,13 @@
 ## Iron Juggernaut
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://youtu.be/anmH7nn_Um0) | [Heroic video guide (YouTube)](https://youtu.be/PgE48n6WUO8) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 ### Overview
 
 - Two main phases:

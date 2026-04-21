@@ -1,5 +1,13 @@
 ## Galakras
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=tkBcxksmzrc) | [Heroic video guide (YouTube)](https://youtu.be/OLK2HYbP3eM) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 ### Overview
 
 - Mostly a trash/waves fight.

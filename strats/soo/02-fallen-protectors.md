@@ -1,5 +1,13 @@
 ## Fallen Protectors
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=kgbZqe_XE7o) | [Heroic video guide (YouTube)](https://www.youtube.com/watch?v=tKmsraLsbd4) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 ### Overall Win Condition / Pacing
 
 - Need to kill all 3 bosses at the same time.

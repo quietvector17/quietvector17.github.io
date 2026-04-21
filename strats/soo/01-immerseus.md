@@ -1,5 +1,13 @@
 ## Immerseus
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=kius2JJsTdI) | [Heroic video guide (YouTube)](https://www.youtube.com/watch?v=ELiVHT72BZo) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 ### General
 
 - ***If your group doesn't have adds - shift clockwise***

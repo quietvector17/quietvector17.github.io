@@ -1,5 +1,13 @@
 ## Sha of Pride
 
+### Video Guides
+
+| Normal | Heroic |
+| --- | --- |
+| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=39otFWF4I1o) | [Heroic video guide (YouTube)](https://youtu.be/RcTJHxFVcpM) |
+
+<!-- Replace the placeholder URLs above with your YouTube links. -->
+
 ### Pride Basics
 
 - Pride is the fight's main mechanic.
