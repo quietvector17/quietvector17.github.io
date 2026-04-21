@@ -1,13 +1,5 @@
 ## Fallen Protectors
 
-### Video Guides
-
-| Normal | Heroic |
-| --- | --- |
-| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=kgbZqe_XE7o) | [Heroic video guide (YouTube)](https://www.youtube.com/watch?v=tKmsraLsbd4) |
-
-<!-- Replace the placeholder URLs above with your YouTube links. -->
-
 ### Overall Win Condition / Pacing
 
 - Need to kill all 3 bosses at the same time.
@@ -89,3 +81,39 @@
 - Room will go dark: stand in the bubble to reduce damage taken.
 - Kill two adds to end this phase (a lot of cleave).
 - Chain raid CDs here.
+
+### Video Guides
+
+<!-- Replace `REPLACE_ME_NORMAL` / `REPLACE_ME_HEROIC` with YouTube video IDs (the `v=` part). -->
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+  <div>
+    <strong>Normal</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_NORMAL"
+        title="Fallen Protectors (Normal) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+
+  <div>
+    <strong>Heroic</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_HEROIC"
+        title="Fallen Protectors (Heroic) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div>

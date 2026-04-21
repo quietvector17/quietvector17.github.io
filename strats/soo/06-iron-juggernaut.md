@@ -1,13 +1,5 @@
 ## Iron Juggernaut
 
-### Video Guides
-
-| Normal | Heroic |
-| --- | --- |
-| [Normal video guide (YouTube)](https://youtu.be/anmH7nn_Um0) | [Heroic video guide (YouTube)](https://youtu.be/PgE48n6WUO8) |
-
-<!-- Replace the placeholder URLs above with your YouTube links. -->
-
 ### Overview
 
 - Two main phases:
@@ -74,3 +66,39 @@
 - `Mortar Barrage`
   - Many `Mortar Cannons`.
   - Prioritize dodging.
+
+### Video Guides
+
+<!-- Replace `REPLACE_ME_NORMAL` / `REPLACE_ME_HEROIC` with YouTube video IDs (the `v=` part). -->
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+  <div>
+    <strong>Normal</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_NORMAL"
+        title="Iron Juggernaut (Normal) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+
+  <div>
+    <strong>Heroic</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_HEROIC"
+        title="Iron Juggernaut (Heroic) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div>

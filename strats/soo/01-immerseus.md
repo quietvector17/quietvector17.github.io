@@ -1,13 +1,5 @@
 ## Immerseus
 
-### Video Guides
-
-| Normal | Heroic |
-| --- | --- |
-| [Normal video guide (YouTube)](https://www.youtube.com/watch?v=kius2JJsTdI) | [Heroic video guide (YouTube)](https://www.youtube.com/watch?v=ELiVHT72BZo) |
-
-<!-- Replace the placeholder URLs above with your YouTube links. -->
-
 ### General
 
 - ***If your group doesn't have adds - shift clockwise***
@@ -59,3 +51,39 @@
 - Resource bar represents corruption `100 -> 0` (fight over).
 - Hero on pull with lust.
 - Second pot on second DPS phase.
+
+### Video Guides
+
+<!-- Replace `REPLACE_ME_NORMAL` / `REPLACE_ME_HEROIC` with YouTube video IDs (the `v=` part). -->
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-items: start;">
+  <div>
+    <strong>Normal</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_NORMAL"
+        title="Immerseus (Normal) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+
+  <div>
+    <strong>Heroic</strong>
+    <div style="aspect-ratio: 16 / 9; width: 100%; margin-top: 8px;">
+      <iframe
+        style="width: 100%; height: 100%; border: 0;"
+        src="https://www.youtube.com/embed/REPLACE_ME_HEROIC"
+        title="Immerseus (Heroic) video guide"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</div>
