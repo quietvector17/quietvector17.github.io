@@ -463,6 +463,28 @@ button.ghost {
   border: 0;
 }
 
+.prose .video-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin: 10px 0 18px;
+}
+
+.prose .video-guide .video-embed {
+  margin: 8px 0 0;
+}
+
+.prose .video-guide-label {
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  color: rgba(231, 236, 245, 0.92);
+}
+
+.prose .video-guide-link {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+}
+
 /* Intentionally loud callouts (guild-critical reminders). */
 .prose .callout-danger {
   margin: 14px 0 18px;

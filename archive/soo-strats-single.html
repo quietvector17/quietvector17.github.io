@@ -124,6 +124,7 @@
 
           decorateHeroicMarkers(body);
           embedYouTubeLinks(body);
+          embedVideoGuides(body);
           decorateGuildCallouts(body);
           decorateGuildAssignmentsLayout(body);
 
@@ -202,6 +203,115 @@
             container.parentNode.insertBefore(wrap, container.nextSibling);
           } else {
             root.appendChild(wrap);
+          }
+        }
+      }
+
+      function embedVideoGuides(root) {
+        // Embed the "Video Guides" section (Normal + Heroic) into a 2-column grid.
+        // We do this in JS because DOMPurify strips iframes from Markdown HTML.
+        const heads = Array.from(root.querySelectorAll("h3, h4, h5"));
+        for (const h of heads) {
+          const title = (h.textContent || "").trim().toLowerCase();
+          if (title !== "video guides") continue;
+
+          const level = Number(h.tagName.slice(1)) || 6;
+          let cur = h.nextElementSibling;
+          const found = [];
+          const touched = [];
+          while (cur) {
+            if (/^H[1-6]$/.test(cur.tagName)) {
+              const nextLevel = Number(cur.tagName.slice(1)) || 6;
+              if (nextLevel <= level) break;
+            }
+
+            const links = Array.from(cur.querySelectorAll('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]'));
+            if (links.length) {
+              touched.push(cur);
+              for (const a of links) {
+                const href = a.getAttribute("href") || "";
+                const info = parseYouTubeUrl(href);
+                if (!info) continue;
+                if (href.includes("REPLACE_ME")) continue;
+
+                const container = a.closest("li, p") || cur;
+                const ctx = ((container.textContent || "") + " " + (a.textContent || "")).toLowerCase();
+                found.push({ a, href, info, ctx });
+              }
+            }
+
+            cur = cur.nextElementSibling;
+          }
+
+          let normal = null;
+          let heroic = null;
+          for (const item of found) {
+            if (!heroic && item.ctx.includes("heroic")) heroic = item;
+            else if (!normal && item.ctx.includes("normal")) normal = item;
+          }
+          if (!normal && !heroic && found.length) {
+            normal = found[0] || null;
+            heroic = found[1] || null;
+          }
+          if (!normal && !heroic) continue;
+
+          const next = h.nextElementSibling;
+          if (next && next.classList && next.classList.contains("video-guides-grid")) continue;
+
+          const grid = document.createElement("div");
+          grid.className = "video-guides-grid";
+
+          function addGuide(label, item) {
+            if (!item) return;
+            const cell = document.createElement("div");
+            cell.className = "video-guide";
+
+            const lab = document.createElement("div");
+            lab.className = "video-guide-label";
+            lab.textContent = label;
+
+            const wrap = document.createElement("div");
+            wrap.className = "video-embed";
+
+            const inner = document.createElement("div");
+            inner.className = "video-embed-inner";
+
+            const iframe = document.createElement("iframe");
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+            const params = new URLSearchParams();
+            params.set("rel", "0");
+            params.set("modestbranding", "1");
+            if (item.info.startSeconds) params.set("start", String(item.info.startSeconds));
+            iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(item.info.videoId)}?${params.toString()}`;
+
+            inner.appendChild(iframe);
+            wrap.appendChild(inner);
+            cell.appendChild(lab);
+            cell.appendChild(wrap);
+
+            const p = document.createElement("p");
+            p.className = "video-guide-link";
+            const a = document.createElement("a");
+            a.href = item.href;
+            a.target = "_blank";
+            a.rel = "noreferrer";
+            a.textContent = "Watch on YouTube";
+            p.appendChild(a);
+            cell.appendChild(p);
+
+            grid.appendChild(cell);
+          }
+
+          addGuide("Normal", normal);
+          addGuide("Heroic", heroic);
+
+          h.insertAdjacentElement("afterend", grid);
+
+          for (const el of touched) {
+            if (el.tagName === "UL" || el.tagName === "P") el.remove();
           }
         }
       }
