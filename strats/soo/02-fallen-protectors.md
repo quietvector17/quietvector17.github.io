@@ -86,5 +86,5 @@
 
 <!-- Replace the placeholder links below with your YouTube links. -->
 
-- Normal video guide (YouTube): https://www.youtube.com/watch?v=REPLACE_ME_NORMAL
-- Heroic video guide (YouTube): https://www.youtube.com/watch?v=REPLACE_ME_HEROIC
+- Normal video guide (YouTube): https://youtu.be/kgbZqe_XE7o
+- Heroic video guide (YouTube): https://youtu.be/tKmsraLsbd4
