@@ -1,100 +1,93 @@
-## Kor'kron Dark Shaman
+## Dark Shamans
 
-### Overview
+- HEROIC: This encounter is made easier by having 3 tanks.
+  - Allows you to separate the bosses and outrange abilities
+  - Problematic abilities are "Toxic Mist" and "Toxic Storm"
 
-- Two bosses: `Earthbinder Haromm` + `Wavebinder Kardris`.
-- The fight ramps as each boss hits HP breakpoints and unlocks new abilities.
-- Heroic: the fight is commonly made easier with **3 tanks** so you can separate the bosses and reduce overlap from `Toxic Mist` / `Toxic Storm`.
+### HEROIC Strat:
 
-### Pull: Wolves
+- Ranged should stack
+  - Strafe to the side once "Iron Tomb" is cast
 
-- You start with two wolf adds at ~10% HP.
-  - They cleave and apply a stacking DoT to the tank.
-- Kill wolves immediately.
-  - Goal: have wolves dead before bosses reach `85%` (before `Toxic Mist` / `Toxic Storm` start).
+### Pull
 
-### Positioning (Heroic Split)
+- Start with two wolf adds with around 10% of their health
+  - Wolves cleave and add a stacking DoT to the tank
+  - Focus the wolves down initially
+  - Kill these dogs before the bosses reach 85% health to avoid any abilities coming out while the dogs are alive
 
-| Boss | Suggested group | Movement goal |
-| --- | --- | --- |
-| `Earthbinder Haromm` | 2 tanks + melee + 3 healers | Keep controlled; avoid filling the room with `Iron Tomb` |
-| `Wavebinder Kardris` | 1 tank + the rest (mostly ranged) | Kite steadily around the room; keep `Toxic Storm` away from the stacked group |
+### Earthbinder Haromm
 
-### Ability Timeline (By Boss HP)
+- HEROIC: 2 tanks + 3 healers + Melee DPS
+  - Healers should huge the wall as much as possible
+- Starts out with a stacking tank attack that does high frost damage
+  - Stacks cause the tank to take increased frost damage
+  - Needs to be tank swapped to reset the stacks of this
 
-| Boss HP | Haromm | Kardris | Raid Call |
-| --- | --- | --- | --- |
-| `95%` | `Iron Tomb` | `Iron Prison` | Start placing permanent mechanics cleanly; plan defensives |
-| `85%` | `Toxic Mist` | `Toxic Storm` | Main healing + movement pressure begins |
-| `65%` | `Foul Stream` | `Foul Geyser` | Avoid lethal overlaps; control add spawns |
-| `45%` | `Ashen Wall` | `Falling Ash` | Respect walls/circles; don’t get trapped |
-| `25%` | (Both) `Bloodlust` | (Both) `Bloodlust` | Use `Bloodlust` here |
+#### HEROIC: At 95% Health
 
-### Earthbinder Haromm (Melee Side)
+- Start using "Iron Tomb"
+  - Creates a ground effect underneath a player where a tomb spawns after a few seconds
+  - Deals 500K Damage to anyone standing there. Will remain there the entire fight
 
-- Stacking tank mechanic (high frost damage)
-  - Tanks need to swap to reset stacks.
+#### At 85% Health
 
-#### `Iron Tomb` (starts at `95%`)
+- Start using "Toxic Mist"
+  - Nature DoT on 5 players
+  - Damage increases every time it ticks (Ticks 1/s for 30s)
+  - Huge portion of the damage dealt in the fight
 
-- Creates a ground effect under a player; a tomb spawns after a few seconds.
-  - ~500K damage to anyone standing in it.
-  - The tomb location **persists for the rest of the fight**.
-- Heroic positioning trick: keep ranged stacked and **strafe together** when tombs are about to drop.
+#### At 65% Health
 
-#### `Toxic Mist` (starts at `85%`)
+- Start using "Foul Stream"
+  - Puts a mark on a random player, causing a line AoE to travel towards the player after 3 seconds. GTFO the raid and if you are targeted, use a defensive
+  - HEROIC: prioritizes players that do not "Toxic Mist" DoT effect
+    - *DO NOT LET THIS HIT YOU IF YOU HVE TOXIC MIST*
+    - If you are targeted, stand still and let other players dodge
 
-- Nature DoT on 5 players.
-  - Ticks 1/sec for 30s and ramps over time.
-  - This is a huge chunk of the fight’s healing load.
+#### At 45% Health
 
-#### `Foul Stream` (starts at `65%`)
+- Start using "Ashen Wall"
+  - Wall of fire elementals at the position of the tank extending in either direction
+  - Elementals slap your shit if you get too close, watch out
 
-- Marks a random player; after ~3 seconds a line AoE fires toward them.
-  - If you are targeted: get out of the raid and use a defensive.
-  - Heroic: tends to pick players without `Toxic Mist`.
-- **Do not get hit by this if you have `Toxic Mist`.**
-  - If you are targeted: prefer standing still so everyone else can dodge cleanly.
+### Wavebinder Kardris
 
-#### `Ashen Wall` (starts at `45%`)
+- HEROIC: 1 Tank + rest of the raid
+  - KIte the boss in a circle around the room
+- Starts out with a high damage frost storm bolt
+  - Not much to worry about, only care after tank swap
 
-- Spawns a wall of fire elementals at the tank’s position, extending outwards.
-  - Getting too close is lethal; don’t get pinned by the wall.
+#### HEROIC: At 95% Health
 
-### Wavebinder Kardris (Ranged/Kite Side)
+- Start using "Iron Prison"
+  - Debuffs a random player for 60s
+  - At end of debuff, player will take 100% of their maximum health as physical damage
+    - Reduced by armor and cooldowns
 
-- Tank damage bolt (notable mostly after swaps).
+#### At 85% Health
 
-#### `Iron Prison` (starts at `95%`)
+- Start using "Toxic Storm"
+  - Storm that moves around the room and deals damage to players standing in it
+  - Spawns tornados that knock you in the air, watch out
 
-- Debuffs a random player for 60 seconds.
-  - When it expires: the player takes 100% of their max HP as physical damage (reduced by armor and cooldowns).
-- Plan personals/externals for expiration timers.
+#### At 65% Health
 
-#### `Toxic Storm` (starts at `85%`)
+- Start using "Foul Geyser"
+  - Shoots a geyser that follows the tank for a few seconds
+  - Deals extremely high nature damage and spawns a slime twice/second
+    - Slimes move slowly towards players and deal pulsing AoE damage in 3 yard range.
+  - Tank SHOULD run around to avoid the geyser and ideally spawn the adds close together
+    - Ranged can then AoE to kill
 
-- A storm moves around the room; standing in it hurts.
-- Spawns tornadoes that knock you up.
-  - Keep this away from your stacked group.
+#### At 45% Health
 
-#### `Foul Geyser` (starts at `65%`)
+- Start using "Falling Ash"
+  - Creates a very large circle on the ground, where a meteor will land after 30 seconds
+    - Meteor will cause the raid to take 200K Damage
+    - Meter will deal massive damage to anyone inside the circle
+  - HEROIC: let the melee group when its landing so they can use a defensive
 
-- A geyser follows the tank briefly.
-  - Extremely high nature damage.
-  - Spawns slimes twice/second.
-    - Slimes are slow; pulse AoE to players within ~3 yards.
-- Tank should kite to keep slimes grouped so ranged can AoE them down.
+### At 25% Health
 
-#### `Falling Ash` (starts at `45%`)
-
-- Creates a very large circle; a meteor lands after ~30 seconds.
-  - Raid takes ~200K damage when it lands.
-  - Anyone in the circle takes massive damage.
-- Heroic: call the impact timer so the melee group can pre-defensive while repositioning.
-
-### Video Guides
-
-<!-- Replace the placeholder links below with your YouTube links. -->
-
-- Normal video guide (YouTube): https://www.youtube.com/watch?v=REPLACE_ME_NORMAL
-- Heroic video guide (YouTube): https://www.youtube.com/watch?v=REPLACE_ME_HEROIC
+- bosses cast bloodlust - Use bloodlust here
