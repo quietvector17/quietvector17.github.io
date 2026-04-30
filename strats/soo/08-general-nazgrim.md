@@ -1,38 +1,38 @@
 ## General Nazgrim
 
-- waves of 2 adds will appear every 45sec
+- Waves of 2 adds will appear every 45sec
 
 ### Adds
 
-- Korkron Ironblades
+- `Korkron Ironblades`
   - Warrior add
   - Casts `Ironstorm` continuously (Bladestorm)
     - Do NOT stand in these (unless you're the tank)
 
-- Korkron Assassins
+- `Korkron Assassins`
   - Rogue Add
   - Start the fight in stealth and fixate a player until the player dies
   - Will use `backstab` if they can get behind you
   - Can use Hunter Flare to reveal them early
   - Stunnable, Slowable, Snareable
 
-- Korkron Arcweaver
+- `Korkron Arcweaver`
   - Mage Add
   - Randomly `blink` around the room
-  - `??? Strike`
+  - `Magistrike`
     - Targeted AoE Ability
-  - `Arcing Shock`
+  - `Arcane Shock`
     - Damages a random player
     - 25% damage increase for each subsequent cast
 
-- Korkron Warshaman
+- `Korkron Warshaman`
   - Healers
   - `Chain heal` (MUST be interrupted)
   - `Earth shield` (must be dispelled)
   - `Healing totems`
     - move mobs away from totems AND Kill totems
 
-- HEROIC: Korkron Sniper
+- HEROIC: `Korkron Sniper`
   - Fixates (Hunter's Mark) on a random player and fire a volley towards them
   - 400K Physical damage in a 40 yard cone
   - When Fixated - YOU MUST FACE THE ADD TOWARDS A WALL
@@ -111,7 +111,7 @@
   - !!DO NOT STUN MOBS ON TOP OF HEALING TIDE TOTEMS!!
   - Assassins should be revealed and kited with a slow while other units are killed
   - Tanks should pick up Iron blades and then ignore them
-  - Only DPS Iron blades during `Defensive Stance`\
+  - Only DPS Iron blades during `Defensive Stance`
 
 - HEROIC: Ignore all adds and focus boss at 10%
 
