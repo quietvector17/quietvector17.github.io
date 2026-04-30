@@ -445,7 +445,9 @@
           if (!heroicPrefix.test(text)) continue;
 
           uppercaseHeroicPrefix(el);
-          prependSkull(el);
+          // For list items, the default bullet + skull looks messy.
+          // Keep the HEROIC uppercase but don't add the skull.
+          if (el.tagName !== "LI") prependSkull(el);
           el.classList.add("heroic-marker");
         }
       }
