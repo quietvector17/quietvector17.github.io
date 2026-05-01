@@ -41,7 +41,7 @@
 - `Living Corruption` (from `Seismic Slam`)
   - Spawns under the targeted player.
   - 8 yard aura massively slows movement and casting speed.
-  - Grip/taunt into melee so it dies where you want it.
+  - Grip/taunt into melee so it can be cleaved down.
 
 - `Essence of Y'Shaarj`
   - Running into these removes your shield and deals ~150K damage.
