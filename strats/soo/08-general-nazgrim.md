@@ -1,6 +1,6 @@
 ## General Nazgrim
 
-- Waves of 2 adds will appear every 45sec
+- Waves of 2 adds will appear every 45 sec
 
 ### Adds
 
@@ -33,7 +33,7 @@
     - move mobs away from totems AND Kill totems
 
 - HEROIC: `Korkron Sniper`
-  - Fixates (Hunter's Mark) on a random player and fire a volley towards them
+  - Fixates (Hunter's Mark) on a random player and fires a volley towards them
   - 400K Physical damage in a 40 yard cone
   - When Fixated - YOU MUST FACE THE ADD TOWARDS A WALL
 
@@ -64,7 +64,7 @@
   - `Ravager`
     - Axe that spins around the room and deals high damage
     - If you get hit, the boss gains rage
-    - !AVOID LETTING THE BOSS GETTING 100 RAGE AT ALL COSTS!
+    - !AVOID LETTING THE BOSS GET 100 RAGE AT ALL COSTS!
 
 #### Other Abilities
 

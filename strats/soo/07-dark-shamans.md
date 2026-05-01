@@ -19,7 +19,7 @@
 ### Earthbinder Haromm
 
 - HEROIC: 2 tanks + 3 healers + Melee DPS
-  - Healers should huge the wall as much as possible
+  - Healers should hug the wall as much as possible
 - Starts out with a stacking tank attack that does high frost damage
   - Stacks cause the tank to take increased frost damage
   - Needs to be tank swapped to reset the stacks of this
@@ -42,7 +42,7 @@
 - Start using `Foul Stream`
   - Puts a mark on a random player, causing a line AoE to travel towards the player after 3 seconds. GTFO the raid and if you are targeted, use a defensive
   - HEROIC: prioritizes players that do not `Toxic Mist` DoT effect
-    - *DO NOT LET THIS HIT YOU IF YOU HVE TOXIC MIST*
+    - *DO NOT LET THIS HIT YOU IF YOU HAVE TOXIC MIST*
     - If you are targeted, stand still and let other players dodge
 
 #### At 45% Health
@@ -54,7 +54,7 @@
 ### Wavebinder Kardris
 
 - HEROIC: 1 Tank + rest of the raid
-  - KIte the boss in a circle around the room
+  - Kite the boss in a circle around the room
 - Starts out with a high damage frost storm bolt
   - Not much to worry about, only care after tank swap
 
@@ -85,8 +85,8 @@
 - Start using `Falling Ash`
   - Creates a very large circle on the ground, where a meteor will land after 30 seconds
     - Meteor will cause the raid to take 200K Damage
-    - Meter will deal massive damage to anyone inside the circle
-  - HEROIC: let the melee group when its landing so they can use a defensive
+    - Meteor will deal massive damage to anyone inside the circle
+  - HEROIC: let the melee group know when it's landing so they can use a defensive
 
 ### At 25% Health
 
