@@ -1,5 +1,3 @@
 __pycache__/
 *.pyc
 
-# Local WeakAuras dumps / exports
-local/weakauras/
