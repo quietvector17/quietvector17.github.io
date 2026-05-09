@@ -22,7 +22,7 @@
 - Can spawn 1 of 3 Pandaren mobs; each drops an orb when it dies.
 - Clicking the orb grants everyone of one role a buff.
 
-- `Windwalker`
+- `Windwalker` (This is a Panda add that spawns, we do not need one in raid)
   - Charges and leaves a line of blossoms on the ground for 30s.
   - Buff: DPS gain a chance to deal bonus fire damage.
 
