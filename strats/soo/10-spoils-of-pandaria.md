@@ -84,7 +84,7 @@
     - Throws explosives at random targets for splash damage.
     - Spread out.
     - `Gusting Bomb`: move out of the green ground AoE.
-  - `Kovok'shin Warcaller`
+  - `Kor'thik Warcaller`
     - Melees the tank and can enrage.
     - Kite while enraged.
     - Heroic: should be dispelled by a rogue or hunter.
