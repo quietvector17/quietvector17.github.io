@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Automated SoO Strategies | ToT Fight Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero-top">
+          <p class="eyebrow">Siege of Orgrimmar</p>
+          <h1>Automated Raid Strategies</h1>
+          <p class="lede">Generated from normal and heroic guide transcripts in <code>transcripts/soo-automated/</code>.</p>
+          <p class="hint"><a href="soo-strats.html">Back to hand-written SoO strats</a></p>
+        </div>
+        <div class="hero-panel">
+          <div class="version-tag">
+            <span class="label">Scope</span>
+            <span class="value">25m only</span>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="card">
+          <h2>Automated SoO Strats</h2>
+          <div id="content" class="prose">
+            <p class="note">Loading...</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+    <script>
+      const contentEl = document.getElementById("content");
+
+      marked.setOptions({
+        gfm: true,
+        breaks: false,
+      });
+
+      const FILES = [
+        "strats/soo-automated/01-immerseus.md",
+        "strats/soo-automated/02-fallen-protectors.md",
+        "strats/soo-automated/03-norushen.md",
+        "strats/soo-automated/04-shaofpride.md",
+        "strats/soo-automated/05-galakras.md",
+        "strats/soo-automated/06-iron-juggernaut.md",
+        "strats/soo-automated/07-dark-shamans.md",
+        "strats/soo-automated/08-general-nazgrim.md",
+        "strats/soo-automated/09-malkorok.md",
+        "strats/soo-automated/10-spoils-of-pandaria.md",
+        "strats/soo-automated/11-thok-the-bloodthirsty.md",
+        "strats/soo-automated/12-siegecrafter-blackfuse.md",
+        "strats/soo-automated/13-paragons-of-the-klaxxi.md",
+      ];
+
+      async function load() {
+        try {
+          const parts = [];
+          for (const file of FILES) {
+            const res = await fetch(file, { cache: "no-store" });
+            if (!res.ok) throw new Error(`Fetch failed for ${file}: ${res.status}`);
+            parts.push(await res.text());
+          }
+
+          const notice = [
+            "# Automated Siege of Orgrimmar Strategies",
+            "",
+            "Generated experimentally from video transcripts. These notes intentionally keep only 25-man guidance and ignore 10-man-only details.",
+          ].join("\n");
+          const html = marked.parse([notice, ...parts].join("\n\n"));
+          contentEl.innerHTML = DOMPurify.sanitize(html);
+          applyBossCollapsibles(contentEl);
+          embedVideoGuides(contentEl);
+        } catch (err) {
+          contentEl.innerHTML = `<p class="note">Could not load automated strats. ${String(err)}</p>`;
+        }
+      }
+
+      function applyBossCollapsibles(root) {
+        const h2s = Array.from(root.querySelectorAll("h2"));
+        if (!h2s.length) return;
+
+        const storageKey = `strats:autoBossOpen:${location.pathname}`;
+        const savedOpen = loadOpenSet(storageKey);
+        const hasSaved = savedOpen != null;
+        const openSet = savedOpen || new Set();
+
+        for (let i = 0; i < h2s.length; i++) {
+          const h2 = h2s[i];
+          const title = (h2.textContent || "Section").trim();
+          const key = title.toLowerCase();
+          const details = document.createElement("details");
+          details.className = "boss";
+          details.open = hasSaved ? openSet.has(key) : i === 0;
+
+          const summary = document.createElement("summary");
+          const titleSpan = document.createElement("span");
+          titleSpan.className = "boss-title";
+          titleSpan.textContent = title;
+          summary.appendChild(titleSpan);
+          details.appendChild(summary);
+
+          const body = document.createElement("div");
+          body.className = "boss-body";
+
+          let node = h2.nextSibling;
+          while (node && !(node.nodeType === 1 && node.tagName === "H2")) {
+            const next = node.nextSibling;
+            body.appendChild(node);
+            node = next;
+          }
+
+          details.appendChild(body);
+          h2.replaceWith(details);
+
+          details.addEventListener("toggle", () => {
+            try {
+              const cur = loadOpenSet(storageKey) || new Set();
+              if (details.open) cur.add(key);
+              else cur.delete(key);
+              localStorage.setItem(storageKey, JSON.stringify(Array.from(cur)));
+            } catch {
+              // Ignore storage failures.
+            }
+          });
+        }
+      }
+
+      function loadOpenSet(storageKey) {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return null;
+          const arr = JSON.parse(raw);
+          if (!Array.isArray(arr)) return null;
+          return new Set(arr.map((s) => String(s)));
+        } catch {
+          return null;
+        }
+      }
+
+      function embedVideoGuides(root) {
+        const heads = Array.from(root.querySelectorAll("h3, h4, h5"));
+        for (const h of heads) {
+          if ((h.textContent || "").trim().toLowerCase() !== "video guides") continue;
+
+          const links = [];
+          let cur = h.nextElementSibling;
+          while (cur && !/^H[1-6]$/.test(cur.tagName)) {
+            links.push(...Array.from(cur.querySelectorAll('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]')));
+            cur = cur.nextElementSibling;
+          }
+
+          const guides = links
+            .map((a) => ({ href: a.href, info: parseYouTubeUrl(a.href), text: (a.closest("li, p") || a).textContent || "" }))
+            .filter((item) => item.info);
+          if (!guides.length) continue;
+
+          const grid = document.createElement("div");
+          grid.className = "video-guides-grid";
+
+          for (const item of guides) {
+            const label = item.text.toLowerCase().includes("heroic") ? "Heroic" : "Normal";
+            const cell = document.createElement("div");
+            cell.className = "video-guide";
+
+            const lab = document.createElement("div");
+            lab.className = "video-guide-label";
+            lab.textContent = label;
+            cell.appendChild(lab);
+
+            const wrap = document.createElement("div");
+            wrap.className = "video-embed";
+            const inner = document.createElement("div");
+            inner.className = "video-embed-inner";
+            const iframe = document.createElement("iframe");
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(item.info.videoId)}?rel=0&modestbranding=1`;
+            inner.appendChild(iframe);
+            wrap.appendChild(inner);
+            cell.appendChild(wrap);
+
+            const p = document.createElement("p");
+            p.className = "video-guide-link";
+            const a = document.createElement("a");
+            a.href = item.href;
+            a.target = "_blank";
+            a.rel = "noreferrer";
+            a.textContent = "Watch on YouTube";
+            p.appendChild(a);
+            cell.appendChild(p);
+            grid.appendChild(cell);
+          }
+
+          h.insertAdjacentElement("afterend", grid);
+        }
+      }
+
+      function parseYouTubeUrl(url) {
+        try {
+          const u = new URL(url);
+          if (u.hostname === "youtu.be") {
+            const videoId = u.pathname.replace(/^\//, "").split("/")[0];
+            return videoId ? { videoId } : null;
+          }
+          if (u.hostname === "www.youtube.com" || u.hostname === "youtube.com") {
+            if (u.pathname === "/watch") {
+              const videoId = u.searchParams.get("v");
+              return videoId ? { videoId } : null;
+            }
+          }
+          return null;
+        } catch {
+          return null;
+        }
+      }
+
+      load();
+    </script>
+  </body>
+</html>
