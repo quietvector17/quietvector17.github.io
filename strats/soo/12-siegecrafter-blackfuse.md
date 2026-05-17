@@ -1,116 +1,224 @@
-## Siegecrafter Blackfuse (WIP)
+## Siegecrafter Blackfuse
 
 ### Overview
 
-- Single-target boss with repeating weapon waves.
-- Main goals:
-  - Handle the active weapon on the floor.
-  - Kill or disable the most dangerous weapon on the conveyor belt.
-  - Manage `Crawler Mines` and `Automated Shredders` cleanly.
-- Heroic adds a second weapon each cycle, so weapon priority and belt execution matter much more.
+- Heroic: 2 tanks.
+- 10m: 2 healers.
+- 25m: 4-5 healers.
+- Fight is mostly about:
+  - Clean conveyor belt kills.
+  - Controlled sawblade / laser placement.
+  - Killing `Crawler Mines` before they spread.
+  - Tanks killing `Automated Shredders` quickly.
 
 #### Heroic notes
 
-- Heroic: boss uses two weapons per cycle.
-  - One weapon stays active on the main platform.
-  - One weapon is destroyed on the conveyor belt.
-- Heroic: `Electrostatic Charge` forces a real tank swap plan.
-- Heroic: sawblades persist and room space gets tighter over time.
-- Heroic: most groups send a small, mobile belt team every cycle.
+- Every assembly line leaves 2 weapons active.
+  - 1 is normal.
+  - 1 is overcharged.
+- The weapon you kill on the belt determines what is left active.
+- Blackfuse tends to overcharge in priority order:
+  - `Electromagnet`
+  - `Crawler Mines`
+  - `Shockwave Missile Turret`
+  - `Laser Turret`
+- He generally avoids overcharging the same available weapon twice in a row.
+- Belt failure is one of the main wipe causes.
+  - Do not send extra DPS unless someone dies; you need damage on the boss.
 
-### Boss Abilities
+### Overcharged Weapons
 
-- `Electrostatic Charge`
-  - Heavy tank hit that leaves a debuff increasing damage taken from later charges.
-  - Tank swap after each stack or according to your cooldown plan.
-  - Heroic: stacks matter much more because tanks also deal with `Automated Shredder`.
+- `Shockwave Missile Turret`
+  - Spawns 3 missiles in a row.
+  - Each missile has health and repeatedly casts `Shockwave` until killed.
+  - All DPS swap and kill each one quickly.
 
-- `Automated Shredder`
-  - Spawns regularly and must be picked up by the off tank.
-  - Casts `Death From Above`.
-    - Jumps to a player and deals lethal damage in the impact zone.
-    - Move out before it lands.
-  - Shredders take bonus damage for a short time after landing from `Death From Above`.
-    - Save burst for this window.
-  - Tank should drag the shredder through damaging ground effects when possible.
-    - This helps kill it before the next one spawns.
+- `Laser Turret`
+  - Creates 3 fixed rings of fire around the room.
+  - Each ring has a gap.
+  - If the raid is positioned correctly, the rings are avoidable.
+
+- `Electromagnet`
+  - Pulls and pushes players back and forth.
+  - Also throws sawblades back and forth across the room.
+  - This is extremely dangerous if sawblades were placed badly.
 
 - `Crawler Mines`
-  - Small mines fixate and move toward players.
-  - If they reach someone or finish arming, they explode for heavy raid damage.
-  - A player can soak one by touching it.
-    - Use a strong defensive or immunity.
-    - Classes assigned to mines should handle them consistently every set.
-
-### Weapon Cycle
-
-- Each cycle activates one weapon on the floor.
-- A conveyor belt also carries weapons past the raid.
-  - Players assigned to the belt jump up, kill one weapon, then return.
-- Pick the belt target based on which floor weapon is hardest for your raid to handle.
-
-### Floor Weapons
-
-#### `Shockwave Missile Turret`
-
-- Fires missiles at targeted locations.
-- Missiles leave large swirl markers before impact.
-- Move out quickly; impact is lethal or near-lethal.
-- Keep the raid moving in a controlled direction so missiles do not box people in.
-
-#### `Laser Turret`
-
-- Fixates a player with a beam that leaves fire trails.
-- If targeted:
-  - Kite the laser around the edge of the room.
-  - Do not cut through the raid.
-  - Do not trap the mine-soakers or shredder tank.
-
-#### `Crawler Mines`
-
-- Mines spawn on the floor as the active weapon.
-- Assigned players soak them one by one with personals.
-- If a mine is missed, it is usually a wipe.
-
-#### `Electromagnet`
-
-- Pulls all sawblades across the room toward itself.
-- This can drag blades through the raid unexpectedly.
-- Watch blade paths and move early.
-- Heroic: very dangerous once multiple blades are already out.
+  - Large mine jumps down first.
+  - When it dies, 2 smaller mines spawn.
+  - Requires strong slows, stuns, knockbacks, and AoE.
 
 ### Conveyor Belt
 
-- Assigned belt players jump onto the pipe when the assembly line starts.
-- Avoid the fire beams / holes while moving down the belt.
-- Kill the assigned weapon before it reaches the end.
-- Mobile burst DPS are best here.
-- Common rule:
-  - If your belt team cannot reliably kill a weapon, simplify the floor plan instead of greedily choosing harder targets.
+- Make 2 belt teams and alternate every assembly line.
+  - 10m: 2 groups of 2.
+  - 25m: 2 groups of 5.
+- Best classes:
+  - Rogues are excellent because they can use cooldowns every belt and survive `Overload` / `Superheated` reliably.
+  - Ret paladins and hunters are also strong.
+  - Most melee are good if they can meet the damage check.
+- Heroic belt fire moves right-to-left.
+  - Learn the timing and move through decisively.
+  - If you hesitate too long, you can miss the weapon kill.
+- Use a warlock gateway from the blue marker / pipe edge if available.
+  - This helps belt players get back fast and increases boss uptime.
+- Belt players should use defensives freely if they get `Superheated` stacks.
 
-### Heroic Weapon Priorities
+### Positioning Plan
 
-- Common dangerous floor combinations are the ones that reduce room space:
-  - `Laser Turret` + `Electromagnet`
-  - `Shockwave Missile Turret` + `Electromagnet`
-  - Multiple sawblade-heavy cycles in a row
-- In general:
-  - Kill `Electromagnet` on the belt when your room is already cluttered with sawblades.
-  - Kill `Laser Turret` if your raid struggles to place beams cleanly.
-  - Kill `Crawler Mines` if you do not have enough safe immunities/defensives available for that cycle.
-  - Kill `Shockwave Missile Turret` if movement is already constrained and dodging will become unreliable.
-- Keep the order consistent pull to pull so everyone knows what will be active downstairs.
+- Start ranged near the center.
+- Drop the first `Launch Sawblade` in the center of the room.
+  - This is important for the first `Automated Shredder`.
+- After the first sawblade, ranged move to green.
+  - Warlocks may need to stay slightly closer so gateways do not despawn.
+  - Nobody should be on red yet.
+- After the second laser, ranged stack on red.
+- General rule after that:
+  - Drop sawblades to the left of the raid.
+  - The raid takes small steps right as needed.
+  - Stay stacked on one person so there is always room left for the next sawblade.
+- Laser targets always run left or directly backward.
+  - Never run right.
+  - If the raid is already far right for `Electromagnet`, run directly back.
 
-### Positioning / Execution Notes
+### Wave Plan
 
-- Tank the boss near the center so the raid has room to rotate.
-- Keep ranged loosely spread.
-  - This reduces overlap from missiles and gives laser targets cleaner paths.
-- Decide mine assignments before the pull.
-- Decide belt assignments before the pull.
-- Decide where laser players should kite before the pull.
-- Heroic: conserve room space aggressively.
-  - Bad sawblade placement early causes wipes later even if mechanics are otherwise clean.
+#### Wave 1: Overcharged Mines + Normal Laser
+
+- First laser target runs directly back toward the opposite side of the room.
+- Everyone else steps right out of the fire.
+- After the second laser, stack ranged on red.
+- Tank the boss on the crawler mine spawn point.
+  - Cleave from the boss into the mines.
+  - Use traps, `Chilblains`, stuns, and knockbacks.
+- Melee help AoE, but move if fixated.
+
+#### Wave 2: Overcharged Laser + Normal Mines
+
+- If positioned correctly, the empowered laser rings should not hit the raid.
+- Keep dropping sawblades left and stepping right.
+- Normal mines spawn to the right.
+  - Ranged slow and kill them.
+
+#### Wave 3: Overcharged Electromagnet + Normal Laser
+
+- Wait for the laser under the raid.
+- Laser target runs directly back through the inner circle.
+- Raid moves right to blue.
+- Use a raid cooldown such as `Power Word: Barrier` in case sawblades pass through.
+- Once the empowered fire despawns on the right, move to the edge.
+  - This keeps the raid safe from moving sawblades.
+- Sawblade targets move left to drop blades.
+- During magnet, laser targets should run directly back.
+- When magnet ends, stay stacked close to the fire.
+
+#### Wave 4: Normal Laser + Overcharged Mines
+
+- Wait for the first laser.
+- Move back toward red.
+- Overcharged mines spawn to the left.
+- Move the boss on top of them and AoE them down with slows / stuns.
+- After mines die, move back toward yellow.
+
+#### Wave 5: Overcharged Electromagnet + Normal Mines
+
+- Mines spawn near purple.
+  - Pre-place a frost trap or equivalent slow if possible.
+- You may not be able to tank the boss directly on the mines because of sawblades.
+- Kill mines as they move through melee.
+- When magnet ends, run back to red.
+
+#### Wave 6: Overcharged Laser + Normal Mines
+
+- Kill the mines.
+- Stay stacked.
+- Continue dropping sawblades left and twitching right.
+
+#### Wave 7: Normal Laser + Overcharged Mines
+
+- Laser target moves left or back.
+- Raid moves right.
+- Mines spawn very close.
+  - Tank boss on top of them.
+  - Use every stun needed to keep them in place.
+- On the second laser, raid moves right again and the fixated player runs back.
+
+#### Wave 8: Overcharged Electromagnet + Normal Mines
+
+- Raid should already be mostly in position.
+- Move to the edge.
+- Kill mines as they move through melee.
+
+#### Wave 9: Normal Mines + Overcharged Laser
+
+- As soon as magnet ends, move immediately back to red.
+- Tank boss near the mine spawn.
+- Kill mines.
+- Drop sawblades left and step right as needed.
+
+#### Wave 10: Normal Laser + Overcharged Mines
+
+- Laser target runs left or back.
+- Raid moves right.
+- Focus fully on the mines.
+- Keep dropping sawblades left.
+- On the second laser, raid moves right and the fixated player runs back.
+
+#### Wave 11: Normal Electromagnet + Overcharged Missile
+
+- Run to yellow for the magnet.
+- All DPS kill each overcharged missile as it spawns.
+  - There are 3 in a row.
+  - Dodge the ripples.
+- Use remaining raid and personal cooldowns here.
+
+#### Wave 12+: Kill the Boss
+
+- Stay together on the right.
+- Handle normal mines and overcharged magnet if needed.
+- Boss should die during this wave or be extremely low.
+- If you reach the next wave, death-dealer turrets start fixating lasers and killing players.
+  - Spread, kite, and burn the boss.
+
+### Mine Control
+
+- Mines are the biggest wipe risk besides belt failures and bad laser placement.
+- Tank the boss on mine spawns whenever possible.
+  - This lets the raid cleave mines from the boss.
+- Use reliable AoE slows:
+  - Hunter trap.
+  - `Chilblains`.
+  - Any equivalent slow.
+- Chain stuns and knockbacks.
+- If a mine breaks loose, single-target it or knock it away from the raid.
+
+### Shredders / Tanking
+
+- Tanks can let `Electrostatic Charge` stacks build higher than normal so shredders die faster.
+  - The transcript strat uses 7-8 stacks before swapping once the rhythm is established.
+- Start with 1 tank on Blackfuse.
+- Swap when the first `Automated Shredder` spawns.
+  - Use the center sawblade to help kill the first shredder.
+- After that tank kills the shredder, they taunt Blackfuse again before stacks fall off.
+- Build to ~5 stacks before the next shredder.
+  - Tank that shredder near melee if safe.
+  - Move it slightly out before `Death From Above` so melee are not hit.
+- Then alternate tanks around 7 stacks.
+- Shredders dying quickly makes the fight much easier.
+  - `Overload` is a major source of deaths.
+
+### Quick Reminders
+
+- First sawblade goes center.
+- Ranged move green, then red after 2 laser fixates.
+- Drop sawblades left.
+- Raid inches right.
+- Lasers go left or directly back, never right.
+- For each `Electromagnet`, run to yellow / the safe edge plan.
+- For each overcharged laser, return toward red afterward.
+- Tank boss on mines whenever possible.
+- Kill overcharged missiles on wave 11.
+- Boss should be dead by wave 13.
 
 ### Video Guides
 
