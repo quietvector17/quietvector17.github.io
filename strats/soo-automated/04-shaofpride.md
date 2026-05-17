@@ -12,14 +12,9 @@
 
 ### Positioning
 
-- Normal:
-  - Tightly stack near the back of the room for healing, buffs, and raid CDs.
-  - Tanks stand in front/slightly to the side.
-  - Spread briefly for `Self Reflection`, then restack.
-- Heroic:
-  - Spread evenly around all four sides of the boss, but stay close enough for healing.
-  - The spread is mainly to close `Rifts of Corruption` quickly.
-  - If you have the rift-closing debuff, move closer to center for healing/dispels.
+- Spread evenly around all four sides of the boss, but stay close enough for healing.
+- The spread is mainly to close `Rifts of Corruption` quickly.
+- If you have the rift-closing debuff, move closer to center for healing/dispels.
 
 ### Key Debuffs
 
@@ -80,7 +75,7 @@
 - At `30%`, all Pride resets to 0 and boss energy resets.
 - Boss starts pulsing raid damage every 10 seconds and adds Pride.
 - Bloodlust at `30%`.
-- Continue all normal mechanics; do not tunnel through prisons/adds/rifts.
+- Continue all core mechanics; do not tunnel through prisons/adds/rifts.
 - Chain raid cooldowns as damage ramps.
 
 #### Heroic notes
@@ -97,7 +92,7 @@
   - Outside, a copy of the player appears; raid kills it to free them.
   - Inside, collect golden orbs to damage the outside copy faster.
   - Basic path: immediate left, left again, then follow the circle right until released.
-- Heroic positioning stays spread; do not use the normal tight-stack plan.
+- Heroic positioning stays spread; do not use a tight-stack plan.
 - Assign a surplus of players to each prison.
   - Example 25-man assignment: 5 players per prison so every prison breaks quickly.
 

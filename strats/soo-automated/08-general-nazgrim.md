@@ -2,7 +2,6 @@
 
 ### Overview
 
-- 25-man normal: 3 tanks is advised to keep `Sundering Blow` rage low.
 - 25-man heroic: use 3 tanks and 5 healers.
 - Add waves of 2 spawn every 45 seconds.
 - Boss stances rotate every minute:
@@ -50,13 +49,6 @@
 
 ### Add Priority
 
-- Normal priority:
-  - `Kor'kron Banner`
-  - `Healing Tide Totem`
-  - `Kor'kron Warshaman`
-  - `Kor'kron Arcweaver`
-  - `Kor'kron Assassin`
-  - `Kor'kron Ironblade`
 - Heroic priority:
   - `Kor'kron Banner`
   - `Healing Tide Totem`

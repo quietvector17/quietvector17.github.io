@@ -2,7 +2,7 @@
 
 ### Overview
 
-- 25m comp: `2 tanks`, `5 healers` on heroic; normal can add a healer if needed but keep the enrage in mind.
+- 25m comp: `2 tanks`, `5 healers` on heroic.
 - Two repeating phases:
   - Phase 1: `Ancient Miasma` spread phase; all healing becomes absorb shields.
   - Phase 2: `Blood Rage` stack/split phase; shields drop and healing works normally.
@@ -54,7 +54,6 @@
   - End the phase with everyone topped before shields return.
 - `Displaced Energy`
   - Debuffed players must not explode in the stack.
-  - Normal: run behind / away, call for dispel, then return.
   - Heroic: debuff roots; use snare breaks such as `Stampeding Roar`, `Hand of Freedom`, `Blink`, or `Unbound Will`.
   - Plan two snare-break answers per `Blood Rage`, one for each debuff set.
   - Dispel only after the rooted player is clear of the stack.

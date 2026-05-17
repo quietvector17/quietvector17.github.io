@@ -18,12 +18,6 @@
 
 ### Phase Order
 
-- Normal pacing:
-  - Push `Rook Stonetoe` to `66%`.
-  - Push `He Softfoot` to `66%`.
-  - Push `Sun Tenderheart` to `66%`.
-  - Repeat for `33%`.
-  - Finish all 3 together.
 - Heroic pacing:
   - Push `Rook Stonetoe` first.
   - Push `Sun Tenderheart` next, but wait until after Rook uses `Spinning Crane Kick`.
@@ -46,11 +40,6 @@
 #### Desperate Measures: Rook
 
 - Rook disappears and spawns `Sorrow`, `Misery`, and `Gloom`.
-- Normal:
-  - Kill `Sorrow` first.
-  - Stack in melee for `Inferno Blast` unless assigned to immunity-soak.
-  - Assign interrupts on `Gloom` for `Corruption Shock`.
-  - Tank `Misery`; give that tank extra healing.
 - Heroic:
   - All 3 adds share health.
   - Stack on `Embodied Sorrow` spawn marker immediately.
@@ -79,8 +68,6 @@
   - Fixates the marked player and deals stacking Shadow damage.
   - Use personals while holding it.
   - Transfer with Extra Action Button before stacks/cooldowns become unsafe.
-- Normal:
-  - Pass `Mark of Anguish` to a tank and avoid unnecessary transfers.
 - Heroic:
   - Cannot pass the mark to tanks.
   - Pre-assign immunity/avoidance holders.

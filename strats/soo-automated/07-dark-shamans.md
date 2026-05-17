@@ -2,14 +2,13 @@
 
 ### Overview
 
-- 25-man normal: 2 tanks, 6-7 healers, favor ranged DPS.
 - 25-man heroic: use 3 tanks; this is much easier and is the expected setup.
 - Bosses share health and gain abilities at health thresholds.
 - Pull bosses outside, kill both wolves before bosses reach 85% if possible.
 - Bloodlust at 25% when the bosses cast their own bloodlust.
 - This is a control/space fight, not a pure DPS race.
 
-### Normal Positioning
+### Positioning
 
 - Kite both bosses together around the central area.
 - Move as a group to stay ahead of `Toxic Storm`, tornadoes, `Foul Slime`, `Ashen Wall`, and `Falling Ash`.
@@ -70,7 +69,7 @@
 
 - Icy Veins describes the heroic mechanics and allows a more general boss-handling approach.
 - The video-derived 25H plan commits to the safer 3-tank split: Haromm with melee near the Drag entrance, Kardris with ranged in the main room.
-- Practical call: use the split strategy; treating heroic like a stacked/kited normal plan makes `Iron Tomb`, `Iron Prison`, slimes, storms, and `Ashen Wall` overlap much harder.
+- Practical call: use the split strategy; treating heroic like a stacked/kited plan makes `Iron Tomb`, `Iron Prison`, slimes, storms, and `Ashen Wall` overlap much harder.
 
 ### Common Wipe Causes
 
@@ -84,7 +83,6 @@
 ### Quick Reminders
 
 - Kill wolves first.
-- Normal: kite together in a circle.
 - Heroic: 3 tanks, split Haromm melee group from Kardris ranged group.
 - 25-man `Toxic Mist`: 5 targets.
 - Use cooldowns for `Iron Prison` and `Falling Ash`.

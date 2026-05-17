@@ -7,7 +7,7 @@
   - Stack phase: hold Thok in place for boss damage.
   - Frenzy / kite phase: kill jailer, open cage, reset into next stack phase.
 - Heroic phase order:
-  - Normal stack -> Normal kite -> Poison stack -> Poison kite -> Frost stack -> Frost kite -> Fire stack -> Fire kite.
+  - Base stack -> base kite -> Poison stack -> Poison kite -> Frost stack -> Frost kite -> Fire stack -> Fire kite.
 - Main wipe causes:
   - pushing stack phase too early or too late.
   - poor cooldown coverage at high `Acceleration`.
@@ -55,7 +55,7 @@
 ### Akolik: Poison Phase
 
 - Free left cage first.
-- `Acid Breath` replaces the normal breath and reduces armor.
+- `Acid Breath` replaces the base breath and reduces armor.
 - `Corrosive Blood` applies dispellable nature DoTs.
 - Healers must keep dispels moving in both the stack and following kite phase.
 - Heroic: cave bats fly down around the second screech of this stack phase.

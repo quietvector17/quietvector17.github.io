@@ -46,13 +46,6 @@
 
 ### Mogu Rooms
 
-#### Normal chest order
-
-- 4 small crates.
-- 2 Pandaren crates.
-- All medium crates, ideally 2 active for cleave if safe.
-- Large crates one at a time.
-
 #### Heroic chest order
 
 - 2 Pandaren crates.
@@ -82,13 +75,6 @@
   - Tanks should face large mobs away from the group and move them out of bad ground immediately.
 
 ### Mantid Rooms
-
-#### Normal chest order
-
-- 1 medium crate.
-- 2 Pandaren crates.
-- 2nd medium crate.
-- Large crates one at a time while continuously opening smalls for cleave.
 
 #### Heroic chest order
 

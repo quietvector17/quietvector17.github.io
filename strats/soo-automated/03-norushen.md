@@ -3,12 +3,10 @@
 ### Overview
 
 - 25-man setup:
-  - Normal: 2 tanks, 5-6 healers.
   - Heroic: 2 tanks, 4-5 healers, high single-target DPS.
 - 7 minute enrage.
 - You fight the `Amalgam of Corruption`.
 - Corruption reduces boss damage only; it does not reduce damage to adds.
-- Normal starts players at `75` corruption.
 - Heroic starts players at `50` corruption.
 - At `50` corruption, DPS only deal 75% damage to the boss; purified DPS deal full damage.
 
@@ -23,13 +21,13 @@
 
 ### Corruption Plan
 
-- Normal goal:
-  - Purify as many players as possible before boss reaches `50%`.
+- Heroic goal:
+  - Purify assigned players before boss reaches `50%`.
   - Stop sending players down at `50%`.
   - Burn boss and handle add spawns from `50%` to dead.
 - 25-man orb set:
   - 25-man has 5 orbs available per set.
-  - Send 2 DPS, 1 tank, and 1 healer per set on normal unless your raid assigns a fifth player.
+  - Send 2 DPS, 1 tank, and 1 healer per set unless your raid assigns a fifth player.
   - Use a pre-assigned rotation.
   - DPS going in soon should soak nearby pools before entering if needed.
 - Consider holding boss around `60%` if too many players still need purification.
@@ -95,10 +93,11 @@
 
 #### Heroic notes
 
-- Heroic is primarily a DPS check.
-- Stack in melee and Bloodlust on pull.
-- Do not send DPS into trials unless one player is far ahead and the raid needs that net gain.
-- Send healers in 1-2 at a time to purify for increased healing.
+- Heroic uses the Icy Veins purification plan; the old heroic video burn plan is no longer the intended strategy.
+- Stack in melee and Bloodlust on pull, but keep sending assigned players into trials until the `50%` burn cutoff.
+- Use the 25-man orb rotation to purify DPS, tanks, and healers instead of leaving DPS outside all fight.
+- DPS purification matters because 50 corruption leaves DPS at reduced boss damage.
+- Send healers in 1-2 at a time if healing is unstable, but do not skip planned DPS purification.
 - `Manifestation of Corruption` pulses give 2 corruption to the raid in 25-man.
 - Pools also pulse 2 corruption in 25-man.
 - From `50%`, add handling must be immediate.
@@ -107,44 +106,45 @@
 
 ### Heroic Icy Veins Difference
 
-- Icy Veins presents heroic as an extension of the normal purification structure, with players using available orbs to purge corruption and improve boss damage/healing.
-- The video-derived 25H plan is more aggressive: keep DPS outside, Bloodlust on pull, and only purify healers unless a DPS is clearly worth the lost uptime.
-- Practical call: use the video plan for 25H farm/progression unless boss damage is low enough that purifying selected DPS is a net gain.
+- Icy Veins presents heroic as a purification-rotation fight, with players using available orbs to purge corruption and improve boss damage/healing.
+- The old video-derived 25H plan kept DPS outside and mostly purified healers, but that is no longer accurate for the intended strategy.
+- Practical call: follow Icy Veins for heroic, use planned orb rotations, and purify enough DPS before `50%` to beat the enrage.
 
 ### Assignments
 
 - Tanks:
   - Swap the boss to reset stacking tank damage.
-  - Normal: rotate tanks through trials.
+  - Rotate tanks through trials.
   - Pick up outside `Manifestations` immediately.
 - Healers:
-  - Normal: rotate through healer trials and help soak pools when assigned.
-  - Heroic: 1-2 healers at a time purify early; assign pool soakers after `50%`.
+  - Rotate through healer trials and help soak pools when assigned.
+  - Heroic: purify early enough to stabilize add pulses and final burn healing.
   - Plan CDs for final burn.
 - DPS:
-  - Normal: 2 DPS per orb set.
+  - 2 DPS per orb set unless your raid assigns a different 25-man rotation.
   - Call when a DPS-realm add dies so outside raid can swap.
-  - Heroic: stay out and maximize boss damage unless specifically assigned.
+  - Heroic: complete assigned trials quickly and return before add pressure snowballs.
 
 ### Common Wipe Causes
 
 - Sending too many DPS into trials and overwhelming outside adds.
+- Heroic: sending too few DPS into trials and reaching `50%` with too much reduced boss damage.
 - `Essence` casts reaching the boss.
 - `Manifestation` pools not soaked instantly.
-- Boss pushed below `50%` before enough players are purified on normal.
-- Heroic: unnecessary DPS trials creating too much corruption and losing boss uptime.
+- Boss pushed below `50%` before enough assigned players are purified.
+- Heroic: trial assignments not coordinated, causing outside adds and pools to stack up.
 - Dying to rotating beam during burn.
 
 ### Quick Reminders
 
-- Normal: 2 DPS, 1 tank, 1 healer per orb set.
+- 25-man: usually 2 DPS, 1 tank, 1 healer per orb set.
 - Purify before `50%`; stop trials at `50%`.
 - Swap to big adds immediately.
 - Move big adds out before death; soak pools fast.
-- Heroic: stack, lust pull, send healers only, delete adds after `50%`.
+- Heroic: use Icy Veins purification, not the outdated video burn plan.
 
 ### Video Guides
 
 - Normal video guide (YouTube): https://youtu.be/7oFoDLYxQag
-- Heroic video guide (YouTube): https://youtu.be/U5t6-0-f-Xk
+- Heroic video guide (YouTube, outdated strategy): https://youtu.be/U5t6-0-f-Xk
 - Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/norushen-strategy-guide-normal-heroic
