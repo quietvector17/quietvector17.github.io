@@ -86,3 +86,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/CD4FzrIUJ6k
 - Heroic video guide (YouTube): https://youtu.be/hos3pBGKK8Q
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/kor-kron-dark-shaman-strategy-guide-normal-heroic

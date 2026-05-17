@@ -92,3 +92,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=tkBcxksmzrc&t=1s
 - Heroic video guide (YouTube): https://youtu.be/OLK2HYbP3eM
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/galakras-strategy-guide-normal-heroic

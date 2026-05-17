@@ -147,3 +147,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/jz4WUtt8Uuo?list=PLPgS-1dKRPQ1yTwFM2DSfp4ZnWH8bdMMF
 - Heroic video guide (YouTube): https://youtu.be/m2Mjjkw6e2k
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/garrosh-hellscream-strategy-guide-normal-heroic

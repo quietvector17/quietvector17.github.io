@@ -113,3 +113,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=2gneOH9v8T4
 - Heroic video guide (YouTube): https://www.youtube.com/watch?v=cwGs9dbtGsU
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/general-nazgrim-strategy-guide-normal-heroic

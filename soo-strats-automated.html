@@ -214,7 +214,18 @@
           h.insertAdjacentElement("afterend", grid);
 
           for (const el of touched) {
-            if (el.tagName === "UL" || el.tagName === "P") el.remove();
+            if (el.tagName === "P") {
+              el.remove();
+              continue;
+            }
+
+            if (el.tagName !== "UL") continue;
+            const items = Array.from(el.querySelectorAll(":scope > li"));
+            for (const li of items) {
+              const hasYouTube = li.querySelector('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]');
+              if (hasYouTube) li.remove();
+            }
+            if (!el.querySelector("li")) el.remove();
           }
         }
       }

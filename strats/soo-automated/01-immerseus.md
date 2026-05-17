@@ -106,3 +106,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=kius2JJsTdI
 - Heroic video guide (YouTube): https://www.youtube.com/watch?v=ELiVHT72BZo
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/immerseus-strategy-guide-normal-heroic

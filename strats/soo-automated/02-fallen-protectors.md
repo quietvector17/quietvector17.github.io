@@ -143,3 +143,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/kgbZqe_XE7o
 - Heroic video guide (YouTube): https://youtu.be/tKmsraLsbd4
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/the-fallen-protectors-strategy-guide-normal-heroic

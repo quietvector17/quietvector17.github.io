@@ -161,3 +161,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/Bf27f2cBHf8
 - Heroic video guide (YouTube): https://youtu.be/XplbR_bnFfA
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/paragons-of-the-klaxxi-strategy-guide-normal-heroic

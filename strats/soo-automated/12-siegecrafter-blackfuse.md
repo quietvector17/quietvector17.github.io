@@ -151,3 +151,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=495kVDlRvPs
 - Heroic video guide (YouTube): https://youtu.be/NDEKmjA1dA8
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/siegecrafter-blackfuse-strategy-guide-normal-heroic

@@ -73,3 +73,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/anmH7nn_Um0
 - Heroic video guide (YouTube): https://youtu.be/PgE48n6WUO8
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/iron-juggernaut-strategy-guide-normal-heroic

@@ -77,3 +77,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=rOJ2y2dq8N4
 - Heroic video guide (YouTube): https://youtu.be/lnkZHFDlAfw
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/malkorok-strategy-guide-normal-heroic

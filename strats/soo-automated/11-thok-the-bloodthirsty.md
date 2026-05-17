@@ -106,3 +106,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/onLX_OIEMjs
 - Heroic video guide (YouTube): https://youtu.be/zuwO6o5z1A8
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/thok-the-bloodthirsty-strategy-guide-normal-heroic

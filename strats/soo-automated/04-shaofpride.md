@@ -135,3 +135,4 @@
 
 - Normal video guide (YouTube): https://www.youtube.com/watch?v=39otFWF4I1o&t=1s
 - Heroic video guide (YouTube): https://youtu.be/RcTJHxFVcpM
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/sha-of-pride-strategy-guide-normal-heroic

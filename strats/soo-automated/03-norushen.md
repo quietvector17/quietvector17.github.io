@@ -139,3 +139,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/7oFoDLYxQag
 - Heroic video guide (YouTube): https://youtu.be/U5t6-0-f-Xk
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/norushen-strategy-guide-normal-heroic

@@ -133,3 +133,4 @@
 
 - Normal video guide (YouTube): https://youtu.be/NnqjgtXsMWc
 - Heroic video guide (YouTube): https://youtu.be/SZotzTOpOwg
+- Heroic written guide (Icy Veins): https://www.icy-veins.com/wow/spoils-of-pandaria-strategy-guide-normal-heroic
