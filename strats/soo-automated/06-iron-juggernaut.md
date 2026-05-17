@@ -4,8 +4,8 @@
 
 - 25-man: use 2 tanks and 6-7 healers; extra healers are fine because the DPS check is light.
 - Two repeating modes:
-  - `Assault Mode`: boss is tanked normally.
-  - `Siege Mode`: boss roots, raid handles knockbacks, mines, tar, and lasers.
+  - `Assault Mode`: boss is tanked normally for 2 minutes.
+  - `Siege Mode`: boss roots for 1 minute while the raid handles knockbacks, mines, tar, and lasers.
 - Bloodlust on pull, especially on heroic.
 - Primary raid rules: stay spread 6 yards, soak mines, dodge ground effects, never kite laser through tar.
 
@@ -30,6 +30,7 @@
   - Assign tanks/immunities/strong defensives to click mines before `Detonation Sequence` finishes.
   - On heroic, aim to soak every mine; do not intentionally let raid explosions through.
   - Off-tank should call quickly if they cannot reach one.
+  - Use externals on non-tank mine soakers; the stomp damage is physical and very high.
 
 #### Heroic notes
 

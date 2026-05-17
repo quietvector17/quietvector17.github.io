@@ -1,0 +1,29 @@
+diff --git a/strats/soo-automated/04-shaofpride.md b/strats/soo-automated/04-shaofpride.md
+index 2e23038..7b4cec6 100644
+--- a/strats/soo-automated/04-shaofpride.md
++++ b/strats/soo-automated/04-shaofpride.md
+@@ -27,6 +27,7 @@
+   - Applied to 8 players in 25-man.
+   - Players with it cannot gain Pride.
+   - Gifted players stack together to trigger the damage/healing/haste buff.
++  - Gifted players can also safely handle Pride-gaining jobs while the buff is active.
+ - `Mark of Arrogance`
+   - Applied to 5 players in 25-man.
+   - Deals heavy damage until dispelled.
+@@ -53,6 +54,7 @@
+ - Tanks and healers cannot be imprisoned, so use them heavily in assignments.
+ - Warlock gateways help reach far prisons.
+ - Move toward prison positions after 60 energy, but do not stand on prisons before the cast.
++  - Standing too close when prison lands causes knockback, damage, and extra Pride.
+ 
+ #### After Imprison: Manifestation of Pride
+ 
+@@ -102,7 +104,7 @@
+ ### Assignments
+ 
+ - Tanks:
+-  - Swap boss for the Pride-generating tank mechanic.
++  - Swap before the boss melees a tank with `Wounded Pride`.
+   - Off tank picks up `Self Reflection` adds.
+ - Healers:
+   - Track `Gift of the Titans` and `Mark of Arrogance`.

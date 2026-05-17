@@ -10,6 +10,7 @@
 - Corruption reduces boss damage only; it does not reduce damage to adds.
 - Normal starts players at `75` corruption.
 - Heroic starts players at `50` corruption.
+- At `50` corruption, DPS only deal 75% damage to the boss; purified DPS deal full damage.
 
 ### Positioning
 
@@ -27,7 +28,8 @@
   - Stop sending players down at `50%`.
   - Burn boss and handle add spawns from `50%` to dead.
 - 25-man orb set:
-  - Send 2 DPS, 1 tank, and 1 healer per set.
+  - 25-man has 5 orbs available per set.
+  - Send 2 DPS, 1 tank, and 1 healer per set on normal unless your raid assigns a fifth player.
   - Use a pre-assigned rotation.
   - DPS going in soon should soak nearby pools before entering if needed.
 - Consider holding boss around `60%` if too many players still need purification.
@@ -67,7 +69,7 @@
 ### Outside Adds
 
 - `Essence of Corruption`
-  - Stun/interrupt until dead.
+  - Stun/interrupt until dead; never let `Expel Corruption` hit the boss.
   - If its line reaches the boss, boss gains a stacking damage buff.
 - `Manifestation of Corruption`
   - Tank immediately.
@@ -102,6 +104,12 @@
 - From `50%`, add handling must be immediate.
   - If a large add pulses more than once, the pull is likely behind the enrage timer.
   - Assign a healer to stand ready at each add death and soak the pool instantly.
+
+### Heroic Icy Veins Difference
+
+- Icy Veins presents heroic as an extension of the normal purification structure, with players using available orbs to purge corruption and improve boss damage/healing.
+- The video-derived 25H plan is more aggressive: keep DPS outside, Bloodlust on pull, and only purify healers unless a DPS is clearly worth the lost uptime.
+- Practical call: use the video plan for 25H farm/progression unless boss damage is low enough that purifying selected DPS is a net gain.
 
 ### Assignments
 

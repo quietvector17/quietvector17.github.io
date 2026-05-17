@@ -41,6 +41,7 @@
 - `Spinning Crane Kick`
   - Rook charges a player and spins.
   - Move out immediately.
+  - Dispel the post-kick DoT if someone is clipped.
 
 #### Desperate Measures: Rook
 
@@ -62,6 +63,7 @@
 
 - `Garrote`
   - Persistent raid DoT; heal through it.
+  - It drops when He enters `Desperate Measures`, so pushing He can relieve high raid bleed damage.
 - `Gouge`
   - Tank turns away before cast finishes to avoid stun and aggro drop.
 - `Instant Poison`
@@ -103,6 +105,7 @@
 
 - Room goes dark; stack in the bubble for damage reduction.
 - Kill the two large adds to end the phase.
+- Tank the large adds near the bubble so melee can cleave without leaving the damage reduction.
 - Cleave/AoE small adds because damage copies to the large adds.
 - Chain raid healing cooldowns.
 - Ranged focus large adds from inside the bubble; melee cleave small adds.

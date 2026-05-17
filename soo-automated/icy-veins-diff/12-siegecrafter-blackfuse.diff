@@ -1,0 +1,28 @@
+diff --git a/strats/soo-automated/12-siegecrafter-blackfuse.md b/strats/soo-automated/12-siegecrafter-blackfuse.md
+index 7b541af..149fca0 100644
+--- a/strats/soo-automated/12-siegecrafter-blackfuse.md
++++ b/strats/soo-automated/12-siegecrafter-blackfuse.md
+@@ -39,6 +39,7 @@
+ - `Crawler Mines`
+   - Slow, root, stun, knock back, and kill before they reach targets.
+   - Default normal-mode disable priority was mines first, then magnet if no mines.
++  - Assign backup stuns for mines that reach melee; a single loose mine can chain deaths.
+ - `Electromagnet`
+   - Pulls players and drags sawblades across the room.
+   - Never stand to the right of a sawblade during magnet.
+@@ -134,8 +135,15 @@
+   - Tank returns and taunts before stacks fall off.
+   - Build to ~5 stacks before next shredder, then alternate around 7 stacks.
+ - Move shredder slightly out before `Death From Above` so melee are not hit.
++- Tanks should use `Death From Above` landing windows and sawblades to help finish shredders before `Overload` ramps.
+ - If a shredder lives too long, call DPS help and use ground effects / sawblades.
+ 
++### Heroic Icy Veins Difference
++
++- Icy Veins explains heroic weapon behavior and general priority, but does not function as a full wave-by-wave placement script.
++- The video-derived 25H plan is a scripted execution plan for belts, sawblades, lasers, mine waves, magnets, and the late overcharged missile wave.
++- Practical call: use the video wave plan as the actual raid strategy; use Icy Veins for mechanic definitions and fallback handling if a wave goes off-script.
++
+ ### Quick Reminders
+ 
+ - 25m belt teams are `5 DPS` each.

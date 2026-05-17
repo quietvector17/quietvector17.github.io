@@ -22,11 +22,14 @@
 - `Tidal Shaman`
   - Focus and interrupt every cast possible, especially heals.
   - Kill `Healing Tide Totem` instantly.
+- `Flameslinger`
+  - Interrupt `Flame Arrows` when possible and keep pressure on them; repeated casts strain NPC and raid healing.
 - `Flag Bearer`
   - Kill `War Banner` instantly; it buffs all adds heavily.
 - `Bonecrusher`
   - Stun, interrupt, or taunt `Fracture` when it charges friendly NPCs.
   - Letting NPCs die is a common wipe cause.
+  - A dead friendly faction leader instantly wipes the raid.
 - `Dragonmaw Ebon Stalker`
   - Move out of gray `Shadow Assault` cones.
 - `Korgra the Snake`
@@ -50,6 +53,7 @@
 - Turrets:
   - When North tower is nearly clear, send one player back up South tower by rope.
   - Both turret players shoot Galakras at the same time to force the landing.
+  - Turret players should clear nearby proto-drakes before the pull-down call.
 
 #### Heroic notes
 

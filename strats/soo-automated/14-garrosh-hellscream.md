@@ -54,6 +54,7 @@
 - Kill all realm adds as quickly as possible.
 - Pick up yellow damage-reduction orbs when they are safe.
 - Once Garrosh is attackable, stack inside / behind him and dodge `Annihilate` cones.
+  - Do not chase every orb if it delays reaching Garrosh; lower energy is the priority.
 - Realm handling:
   - Terrace: tanks gather adds and raid AoEs quickly.
   - Jade Serpent: split left/right, then regroup.
@@ -73,6 +74,7 @@
 - `Whirling Corruption`
   - Move far from Garrosh and heal through it.
   - Tanks can drag Garrosh slightly away from the raid.
+  - Re-stack quickly after the whirl so the next `Touch of Y'Shaarj` breaks cleanly.
 - `Empowered Whirling Corruption`
   - Dodge impact swirls.
   - Kill spawned `Minions of Y'Shaarj` separated from each other.
@@ -92,6 +94,7 @@
 - `Empowered Whirling Corruption`
   - Spread enough to dodge missiles.
   - Keep minions separated and kill individually, or have tanks control them if the boss is about to phase.
+  - Avoid cleave and passive AoE on minions unless the tank calls for a controlled kill.
 - Push cleanly into Phase 4 with no MCs, loose minions, or dangerous tank stacks.
 
 ### Heroic Phase 4: Ruined Stormwind
@@ -112,6 +115,7 @@
   - Soakers take 1 `Malicious Blast` stack, step out until the vulnerability drops, then rotate back if needed.
   - Strong defensives can cover extra stacks.
   - Immunities can save players, but do not rely on immune players as required soak counts.
+  - Keep the Malice target still unless the group is deliberately moving to set up the next `Bombardment`.
 
 #### `Bombardment` / Iron Star
 

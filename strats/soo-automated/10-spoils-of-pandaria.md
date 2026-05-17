@@ -11,6 +11,7 @@
   - Pandaren crates give no energy but give role buffs.
 - Each room has ~4.5 minutes before it explodes.
 - Use separate voice channels if possible; each room needs independent calls for crate pacing and sparks.
+- Do not click the lever until both groups are ready to swap sides; uneven timing can strand a weak group.
 
 #### Heroic notes
 
@@ -78,6 +79,7 @@
   - Heavy raid AoE while active.
   - Kill statues as they spawn; each statue buffs damage by 10%.
   - Use raid CDs during major casts, especially on heroic.
+  - Tanks should face large mobs away from the group and move them out of bad ground immediately.
 
 ### Mantid Rooms
 
@@ -118,6 +120,7 @@
   - `Set to Blow`: move to the side and use extra action button until all stacks are gone.
   - Drop bombs in already-cleared space; do not block future movement.
   - Immunity classes can sometimes soak the debuff away from the raid instead of filling the room with bombs.
+  - Keep opening slower while bombs or pheromone pools are consuming safe floor space.
 
 ### Quick Reminders
 

@@ -49,6 +49,7 @@
 - Ranged follow Thok for boss damage if safe.
 - Tanks / melee kill `Kor'kron Jailer`.
   - Open the cage `2-3` stacks before the desired transition.
+  - Only the jailer's key opens cages; assign one player to loot/click so resets are not delayed.
   - Use movement help for fixated players at high speed: `Stampeding Roar`, priest feathers, warlock gateways.
 
 ### Akolik: Poison Phase
@@ -60,6 +61,7 @@
 - Heroic: cave bats fly down around the second screech of this stack phase.
   - Offtank picks them up and tanks them in melee for cleave.
   - All DPS hard AoE them.
+  - Stun and silence bats so `Sonic Screech` casts do not overlap high Thok screech stacks.
   - Use second potions and raid CDs here.
   - Aim to have bats dead by ~10 stacks.
 
@@ -91,6 +93,12 @@
 - If Thok is `~12%` or lower entering the Frost kite phase, consider ignoring the jailer and killing him in kite.
   - Transitioning again heals him, so do not open another cage if he is already killable.
 - If above that, handle jailer and cage normally, then use the fire stack / kite as final burn.
+
+### Heroic Icy Veins Difference
+
+- Icy Veins covers the heroic phase tools, cages, and add mechanics, but is less prescriptive about exact stack targets and phase pacing.
+- The video-derived 25H plan is more specific: split into two groups of no more than 14, push long stack phases to roughly `26-29` screeches when cooldowns allow, and use a shorter second stack to recover cooldowns.
+- Practical call: follow the video pacing for 25H; use Icy Veins mainly as mechanic confirmation for bats, yeti, dispels, and cage effects.
 
 ### Quick Reminders
 

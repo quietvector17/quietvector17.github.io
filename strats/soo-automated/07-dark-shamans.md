@@ -24,6 +24,7 @@
 - At 85%: `Toxic Mist`
   - 25-man applies to 5 players.
   - Nature DoT lasts 30 seconds and ramps hard.
+  - It cannot be dispelled and goes through immunities.
   - Healers prioritize these players; affected players avoid all extra damage.
 - At 65%: `Foul Stream`
   - Targeted player moves away from raid and uses a defensive if needed.
@@ -40,6 +41,7 @@
 - At 65%: `Foul Geyser`
   - Tank runs to spawn slimes away from raid and clumped.
   - Ranged AoE slimes before they reach players.
+  - Slimes pulse nature damage within 3 yards, so do not drag them through the raid.
 - At 45%: `Falling Ash`
   - Move out of the large circle.
   - Use raid cooldown shortly before the meteor impact.
@@ -63,6 +65,12 @@
   - Mark the tank so ranged know where `Foul Geyser` slimes will spawn.
   - `Iron Prison` targets need full health plus absorb/personal/external just before it expires.
   - Use a raid cooldown for each `Falling Ash`; warn the Haromm group so they use personals if out of range.
+
+### Heroic Icy Veins Difference
+
+- Icy Veins describes the heroic mechanics and allows a more general boss-handling approach.
+- The video-derived 25H plan commits to the safer 3-tank split: Haromm with melee near the Drag entrance, Kardris with ranged in the main room.
+- Practical call: use the split strategy; treating heroic like a stacked/kited normal plan makes `Iron Tomb`, `Iron Prison`, slimes, storms, and `Ashen Wall` overlap much harder.
 
 ### Common Wipe Causes
 

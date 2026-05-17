@@ -1,0 +1,33 @@
+diff --git a/strats/soo-automated/09-malkorok.md b/strats/soo-automated/09-malkorok.md
+index 0631873..82193db 100644
+--- a/strats/soo-automated/09-malkorok.md
++++ b/strats/soo-automated/09-malkorok.md
+@@ -6,6 +6,7 @@
+ - Two repeating phases:
+   - Phase 1: `Ancient Miasma` spread phase; all healing becomes absorb shields.
+   - Phase 2: `Blood Rage` stack/split phase; shields drop and healing works normally.
++- During `Ancient Miasma`, health cannot be healed directly; avoid health damage from orbs and missed soaks.
+ - Main wipe causes:
+   - missed `Imploding Energy` soaks.
+   - players soaking with weak shields or after touching heroic orbs.
+@@ -56,6 +57,7 @@
+   - Normal: run behind / away, call for dispel, then return.
+   - Heroic: debuff roots; use snare breaks such as `Stampeding Roar`, `Hand of Freedom`, `Blink`, or `Unbound Will`.
+   - Plan two snare-break answers per `Blood Rage`, one for each debuff set.
++  - Dispel only after the rooted player is clear of the stack.
+ 
+ #### Heroic alternate soak
+ 
+@@ -64,6 +66,12 @@
+   - Requires dedicated healing and chained personals / externals.
+   - If using this, the raid can stay spread and `Displaced Energy` is much easier to manage.
+ 
++### Heroic Icy Veins Difference
++
++- Icy Veins emphasizes the standard heroic plan: raid stacks in front during `Blood Rage` and splits the cleave with heavy raid cooldowns.
++- The video-derived notes include the Brewmaster solo-soak as a major alternate plan, which changes the whole phase by letting the raid stay spread.
++- Practical call: use standard stacked soaking unless you have a proven solo-soak tank and cooldown chain; solo-soak simplifies `Displaced Energy` but makes one tank assignment critical.
++
+ ### Quick Reminders
+ 
+ - Spread for phase 1; stack for phase 2 unless using the Brewmaster solo-soak plan.

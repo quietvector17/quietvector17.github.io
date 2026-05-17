@@ -4,6 +4,7 @@
 
 - 25-man setup: 2 tanks, 5-6 healers, balanced DPS with stuns/grips for puddles.
 - Fight alternates between DPS phases and split phases.
+- 10 minute hard enrage, but execution usually matters more than raw DPS.
 - Boss does not die at 0 health.
   - Corruption bar starts at `100`.
   - Fight ends when corruption reaches `0`.
@@ -13,7 +14,7 @@
 ### Positioning
 
 - DPS phase:
-  - Raid loosely stacks near the entrance with room to sidestep pools.
+  - Raid loosely stacks near the entrance with 5 yards of personal space for `Sha Bolt` splash.
   - Active tank holds boss off to one side at max safe healing range.
   - Off tank stays with/near the raid and is ready to taunt after `Corrosive Blast`.
 - Split phase:
@@ -30,6 +31,7 @@
   - Keep the cone pointed away from the raid.
 - Sha pools spawn under players.
   - Keep moving enough to avoid them.
+  - Do not over-move; wasted space makes later `Swirl` paths worse.
 - `Swirl`
   - Boss fires a rotating water beam.
   - Run with/through the boss as needed; do not get clipped.

@@ -1,0 +1,22 @@
+diff --git a/strats/soo-automated/08-general-nazgrim.md b/strats/soo-automated/08-general-nazgrim.md
+index 054b89a..240c8af 100644
+--- a/strats/soo-automated/08-general-nazgrim.md
++++ b/strats/soo-automated/08-general-nazgrim.md
+@@ -24,7 +24,7 @@
+ - Prevent rage gain by:
+   - Killing `Kor'kron Banner` instantly.
+   - Dodging `Heroic Shockwave` and fire lines.
+-  - Keeping tank `Sundering Blow` stacks low.
++  - Keeping tank `Sundering Blow` stacks low; each stack increases rage from later blows.
+   - Not attacking during `Defensive Stance`.
+ - Rage abilities:
+   - 30 rage: `Heroic Shockwave`; spread and dodge the lines.
+@@ -77,7 +77,7 @@
+ - `Warshaman`
+   - Interrupt `Chain Heal`.
+   - Dispel `Earth Shield`.
+-  - Move when totems drop.
++  - Move adds out of healing totems before stuns or roots are used.
+ - `Arcweaver`
+   - Stun rotation while killing.
+   - Kill before `Arcane Shock` damage ramps.

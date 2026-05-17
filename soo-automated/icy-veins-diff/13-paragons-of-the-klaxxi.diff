@@ -1,0 +1,41 @@
+diff --git a/strats/soo-automated/13-paragons-of-the-klaxxi.md b/strats/soo-automated/13-paragons-of-the-klaxxi.md
+index 3eac6c9..5fdd24d 100644
+--- a/strats/soo-automated/13-paragons-of-the-klaxxi.md
++++ b/strats/soo-automated/13-paragons-of-the-klaxxi.md
+@@ -58,6 +58,7 @@
+   - Strong soakers: rogues, tanks, warlocks, mages, players with strong personals.
+   - Soakers stand in the line but remain 5 yards apart.
+   - Use an external / healer CD on the target if needed.
++  - If the target is isolated or low, immunities should step in first rather than waiting for the full group.
+ - `Rapid Fire`
+   - Bolts spread outward and can kill later in the fight.
+   - Melee run out during the cast; everyone dodges gaps.
+@@ -83,6 +84,7 @@
+ - Tanks handle `Shield Bash` / `Vicious Assault`.
+   - Offtank taunts when tank is stunned.
+   - Face the cone away from the stunned tank and melee.
++  - Use active mitigation for `Vicious Assault`; missed mitigation checks can kill tanks quickly.
+ 
+ ### Iyyokuk / Fiery Edge
+ 
+@@ -132,6 +134,7 @@
+ - `Reave`
+   - Pulls players toward him and deals raid damage.
+   - Damage is worse closer to him; run away until the cast ends.
++  - Use movement cooldowns if `Reave` overlaps fire lines, amber, or kunchong positioning.
+ - Kill `Kil'ruk`, then finish `Ka'roz`.
+   - If `Ka'roz` enrages, use all remaining tank cooldowns.
+   - Keep avoiding `Whirling` and amber pools while burning.
+@@ -146,6 +149,12 @@
+ - `Skeer`: DPS attacks drop healing spheres.
+ - `Xaril` / `Iyyokuk`: healer throughput buttons.
+ 
++### Heroic Icy Veins Difference
++
++- Icy Veins presents the fixed heroic order and mechanics broadly, but is less prescriptive about the exact 25H execution sequence.
++- The video-derived plan adds stricter handling: manipulate early bloods, deliberately feed scorpions with parasite sets, bait Korven amber onto Hisek, then Bloodlust Xaril and kill before a second `Catalyst`.
++- Practical call: use the video sequence as the raid plan; use Icy Veins to reinforce individual mechanic responsibilities like `Aim`, active mitigation, `Fiery Edge`, `Mesmerize`, and `Reave`.
++
+ ### Quick Reminders
+ 
+ - Opening: damage `Rik'kal`, switch to `Skeer` when bloods spawn.
