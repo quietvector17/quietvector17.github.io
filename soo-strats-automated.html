@@ -157,9 +157,14 @@
           if ((h.textContent || "").trim().toLowerCase() !== "video guides") continue;
 
           const links = [];
+          const touched = [];
           let cur = h.nextElementSibling;
           while (cur && !/^H[1-6]$/.test(cur.tagName)) {
-            links.push(...Array.from(cur.querySelectorAll('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]')));
+            const curLinks = Array.from(cur.querySelectorAll('a[href^="https://youtu.be/"], a[href^="https://www.youtube.com/"]'));
+            if (curLinks.length) {
+              touched.push(cur);
+              links.push(...curLinks);
+            }
             cur = cur.nextElementSibling;
           }
 
@@ -207,6 +212,10 @@
           }
 
           h.insertAdjacentElement("afterend", grid);
+
+          for (const el of touched) {
+            if (el.tagName === "UL" || el.tagName === "P") el.remove();
+          }
         }
       }
 
